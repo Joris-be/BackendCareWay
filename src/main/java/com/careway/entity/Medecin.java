@@ -1,18 +1,25 @@
-package com.careway.backend;
-import java.util.ArrayList;
-import java.util.List;
- 
-import jakarta.persistence.*;
- 
-import lombok.*;
+package com.careway.entity;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
  
 
 @Getter @Setter @NoArgsConstructor @RequiredArgsConstructor @ToString
 @Entity
-public class medecin {
+@Table(name = "medecin")
+public class Medecin {
     
     @Id 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional=false)
+    @NonNull
     private Integer idmedecin;
     
     @Basic(optional=false)
@@ -33,7 +40,6 @@ public class medecin {
     private String rpps;
 
     @Basic(optional=false)
-    @Column(unique = true)
     @NonNull
     private String mail;
 

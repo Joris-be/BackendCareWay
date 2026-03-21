@@ -1,4 +1,4 @@
-package com.careway.backend;
+package com.careway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
