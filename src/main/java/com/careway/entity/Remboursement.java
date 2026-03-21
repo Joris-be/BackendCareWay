@@ -1,6 +1,8 @@
 package com.careway.entity;
+
+import java.util.Date;
+
 import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Getter;
@@ -9,37 +11,29 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
- 
 
 @Getter @Setter @NoArgsConstructor @RequiredArgsConstructor @ToString
 @Entity
-public class Medecin {
+public class Remboursement {
     
     @Id 
     @Basic(optional=false)
     @NonNull
-    private Integer idmedecin;
+    private Integer idremboursement;
     
     @Basic(optional=false)
     @NonNull
-    private String nom;
+    private float montant;
    
     @Basic(optional=false)
     @NonNull
-    private String prenom;
+    private float tauxprisencharge;
 
     @Basic(optional=false)
     @NonNull
-    private String specialite;
-
-    @Basic(optional=false)
-    @Column(unique = true)
-    @NonNull
-    private String rpps;
+    private String statutremboursement;
 
     @Basic(optional=false)
     @NonNull
-    private String mail;
-
-
+    private Date remboursement;
 }

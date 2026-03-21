@@ -1,6 +1,6 @@
 package com.careway.entity;
+
 import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Getter;
@@ -10,15 +10,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
  
-
 @Getter @Setter @NoArgsConstructor @RequiredArgsConstructor @ToString
 @Entity
-public class Medecin {
-    
+public class Transporteur {
     @Id 
     @Basic(optional=false)
     @NonNull
-    private Integer idmedecin;
+    private Integer idtransporteur;
     
     @Basic(optional=false)
     @NonNull
@@ -30,16 +28,9 @@ public class Medecin {
 
     @Basic(optional=false)
     @NonNull
-    private String specialite;
-
-    @Basic(optional=false)
-    @Column(unique = true)
-    @NonNull
-    private String rpps;
+    private String tel;
 
     @Basic(optional=false)
     @NonNull
     private String mail;
-
-
 }
