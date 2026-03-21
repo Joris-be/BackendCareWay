@@ -24,6 +24,10 @@ public class Patient {
     
     @Basic(optional=false)
     @NonNull
+    private String prenom;
+
+    @Basic(optional=false)
+    @NonNull
     private String nom;
    
     @Basic(optional=false)
