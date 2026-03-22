@@ -1,8 +1,13 @@
 package com.careway.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Basic;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -33,4 +38,11 @@ public class Transporteur {
     @Basic(optional=false)
     @NonNull
     private String mail;
+
+    @OneToMany(mappedBy = "transporteur")
+    private List<Note> notes;
+
+    @ManyToOne
+    @JoinColumn(name = "idtransport")
+    private Transport transport;
 }

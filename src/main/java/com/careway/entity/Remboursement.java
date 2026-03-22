@@ -5,6 +5,8 @@ import java.util.Date;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -36,4 +38,8 @@ public class Remboursement {
     @Basic(optional=false)
     @NonNull
     private Date dateremboursement;
+
+    @OneToOne
+    @JoinColumn(name = "idtransport")
+    private Transport transport;
 }

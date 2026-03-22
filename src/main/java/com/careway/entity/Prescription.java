@@ -5,6 +5,8 @@ import java.util.Date;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -36,5 +38,13 @@ public class Prescription {
     @Basic(optional=false)
     @NonNull
     private Date dategeneration;
+
+    @ManyToOne
+    @JoinColumn(name = "idmedecin")
+    private Medecin medecin;
+
+    @ManyToOne
+    @JoinColumn(name = "idpatient")
+    private Patient patient;
 
 }
