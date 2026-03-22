@@ -19,7 +19,6 @@ public class Evaluation {
     private Integer idevaluation;
     
     @Basic(optional=false)
-    @NonNull
     private float note;
    
     @Basic(optional=false)

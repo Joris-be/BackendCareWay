@@ -22,11 +22,9 @@ public class Remboursement {
     private Integer idremboursement;
     
     @Basic(optional=false)
-    @NonNull
     private float montant;
    
     @Basic(optional=false)
-    @NonNull
     private float tauxprisencharge;
 
     @Basic(optional=false)

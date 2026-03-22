@@ -9,17 +9,21 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
- 
-@Getter @Setter @NoArgsConstructor @RequiredArgsConstructor @ToString
+
+@Getter
+@Setter
+@NoArgsConstructor
+@RequiredArgsConstructor
+@ToString
 @Entity
 public class Etape {
-    
-    @Id 
-    @Basic(optional=false)
+
+    @Id
+    @Basic(optional = false)
     @NonNull
     private Integer idetape;
-    
-    @Basic(optional=false)
+
+    @Basic(optional = false)
     @NonNull
     private String statut;
 }

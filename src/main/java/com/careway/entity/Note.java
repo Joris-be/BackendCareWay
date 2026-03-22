@@ -20,6 +20,5 @@ public class Note {
     private Integer idnote;
     
     @Basic(optional=false)
-    @NonNull
     private float nombreetoiles;
 }
