@@ -3,6 +3,8 @@ package com.careway.entity;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -24,4 +26,12 @@ public class Evaluation {
     @Basic(optional=false)
     @NonNull
     private String commentaire;
+
+    @ManyToOne
+    @JoinColumn(name = "idpatient")
+    private Patient patient;
+
+    @ManyToOne
+    @JoinColumn(name = "idtransport")
+    private Transport transport;
 }

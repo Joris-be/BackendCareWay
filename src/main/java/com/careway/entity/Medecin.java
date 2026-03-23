@@ -1,8 +1,11 @@
 package com.careway.entity;
+import java.util.List;
+
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -41,5 +44,7 @@ public class Medecin {
     @NonNull
     private String mail;
 
-
+    // un médecin écrit plusieurs prescriptions
+    @OneToMany(mappedBy = "medecin")
+    private List<Prescription> prescriptions;
 }
