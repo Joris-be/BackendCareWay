@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.careway.dto.NoteDTO;
 import com.careway.entity.Note;
 import com.careway.service.NoteService;
 
@@ -26,19 +27,19 @@ public class NoteController {
 
     // GET /notes
     @GetMapping
-    public List<Note> getAllNotes() {
+    public List<NoteDTO> getAllNotes() {
         return noteService.getAllNotes();
     }
 
     // GET /notes/1
     @GetMapping("/{id}")
-    public ResponseEntity<Note> getNoteById(@PathVariable Integer id) {
+    public ResponseEntity<NoteDTO> getNoteById(@PathVariable Integer id) {
         return ResponseEntity.ok(noteService.getNoteById(id));
     }
 
     // POST /notes
     @PostMapping
-    public ResponseEntity<Note> createNote(@RequestBody Note note) {
+    public ResponseEntity<NoteDTO> createNote(@RequestBody Note note) {
         return ResponseEntity.ok(noteService.saveNote(note));
     }
 
