@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.careway.dto.NoteDTO;
-import com.careway.entity.Note;
 import com.careway.service.NoteService;
 
 @RestController
@@ -38,10 +37,10 @@ public class NoteController {
     }
 
     // POST /notes
-    @PostMapping
-    public ResponseEntity<NoteDTO> createNote(@RequestBody Note note) {
-        return ResponseEntity.ok(noteService.saveNote(note));
-    }
+   @PostMapping
+public ResponseEntity<NoteDTO> createNote(@RequestBody NoteDTO noteDTO) {
+    return ResponseEntity.ok(noteService.saveNote(noteDTO));
+}
 
     // DELETE /notes/1
     @DeleteMapping("/{id}")
