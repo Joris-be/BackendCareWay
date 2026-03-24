@@ -68,4 +68,4 @@ INSERT INTO Remboursement(idremboursement, montant, tauxprisencharge, statutremb
 (2,85.00,0.65,'Rembourse','2026-01-20',2),
 (3,200.00,0.90,'Rembourse','2026-01-25',3),
 (4,150.75,0.75,'En attente','2026-02-05',4),
-(5,310.00,0.95,'Rembourse','2026-02-10',5);
+(5,310.00,0.95,'Refuse','2026-02-10',5);
