@@ -1,11 +1,15 @@
 package com.careway.entity;
 
 import java.util.Date;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -59,4 +63,15 @@ public class Patient {
     @NonNull
     private String pays;
 
+    // un patient possède plusieurs prescriptions
+    @OneToMany(mappedBy = "patient")
+    private List<Prescription> prescriptions; 
+
+    // un patient écrit plusieurs évaluations
+    @OneToMany(mappedBy = "patient")
+    private List<Evaluation> evaluations; 
+
+    // un patient donne plusieurs notes
+    @OneToMany(mappedBy = "patient")
+    private List<Note> notes; 
 }
