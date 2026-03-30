@@ -13,38 +13,49 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
- 
-@Getter @Setter @NoArgsConstructor @RequiredArgsConstructor @ToString
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@RequiredArgsConstructor
+@ToString
 @Entity
 public class Prescription {
-    
-    @Id 
-    @Basic(optional=false)
+
+    @Id
+    @Basic(optional = false)
     @NonNull
     private Integer idprescription;
-    
-    @Basic(optional=false)
+
+    @Basic(optional = false)
     @NonNull
     private String motifmedical;
-   
-    @Basic(optional=false)
+
+    @Basic(optional = false)
     @NonNull
     private String typetransport;
 
-    @Basic(optional=false)
+    @Basic(optional = false)
     @NonNull
     private Date dateprescription;
 
-    @Basic(optional=false)
+    @Basic(optional = false)
     @NonNull
     private Date dategeneration;
 
+    private Integer idpatient;
+
+    private String medecin;
+
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "idmedecin")
-    private Medecin medecin;
+    private Medecin medecinObj;
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "idpatient")
+    @JoinColumn(name = "idpatient", insertable = false, updatable = false)
     private Patient patient;
 
 }
