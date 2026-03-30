@@ -1,7 +1,6 @@
 package com.careway.controller;
 
 import java.util.List;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,14 +10,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.careway.dto.NotificationDTO;
+import com.careway.entity.Notification;
 import com.careway.service.NotificationService;
 
 @RestController
 @RequestMapping("/notifications")
 public class NotificationController {
-
     private final NotificationService notificationService;
 
     public NotificationController(NotificationService notificationService) {
@@ -26,28 +23,30 @@ public class NotificationController {
     }
 
     @GetMapping
-    public List<NotificationDTO> getAllNotifications() {
+    public List<Notification> getAllNotifications() {
         return notificationService.getAllNotifications();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<NotificationDTO> getNotificationById(@PathVariable Integer id) {
+    public ResponseEntity<Notification> getNotificationById(@PathVariable Integer id) {
         return ResponseEntity.ok(notificationService.getNotificationById(id));
     }
 
     @PostMapping
-    public ResponseEntity<NotificationDTO> createNotification(@RequestBody NotificationDTO notificationDTO) {
-        return ResponseEntity.ok(notificationService.saveNotification(notificationDTO));
+    public ResponseEntity<Notification> createNotification(@RequestBody Notification notification) {
+        return ResponseEntity.ok(notificationService.saveNotification(notification));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<NotificationDTO> updateNotification(@PathVariable Integer id, @RequestBody NotificationDTO notificationDTO) {
-        return ResponseEntity.ok(notificationService.updateNotification(id, notificationDTO));
+    public ResponseEntity<Notification> updateNotification(@PathVariable Integer id,
+            @RequestBody Notification notification) {
+        return ResponseEntity.ok(notificationService.updateNotification(id, notification));
     }
 
     @PutMapping("/{id}/read")
-    public ResponseEntity<NotificationDTO> markAsRead(@PathVariable Integer id) {
-        return ResponseEntity.ok(notificationService.markAsRead(id));
+    public ResponseEntity<Void> markAsRead(@PathVariable Integer id) {
+        notificationService.markAsRead(id);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")

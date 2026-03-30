@@ -1,7 +1,6 @@
 package com.careway.controller;
 
 import java.util.List;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,14 +10,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.careway.dto.TransportDTO;
+import com.careway.entity.Transport;
 import com.careway.service.TransportService;
 
 @RestController
 @RequestMapping("/transports")
 public class TransportController {
-
     private final TransportService transportService;
 
     public TransportController(TransportService transportService) {
@@ -26,29 +23,29 @@ public class TransportController {
     }
 
     @GetMapping
-    public List<TransportDTO> getAllTransports() {
+    public List<Transport> getAllTransports() {
         return transportService.getAllTransports();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TransportDTO> getTransportById(@PathVariable Integer id) {
+    public ResponseEntity<Transport> getTransportById(@PathVariable Integer id) {
         return ResponseEntity.ok(transportService.getTransportById(id));
     }
 
     @PostMapping
-    public ResponseEntity<TransportDTO> createTransport(@RequestBody TransportDTO transportDTO) {
-        return ResponseEntity.ok(transportService.saveTransport(transportDTO));
+    public ResponseEntity<Transport> createTransport(@RequestBody Transport transport) {
+        return ResponseEntity.ok(transportService.saveTransport(transport));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TransportDTO> updateTransport(@PathVariable Integer id,
-            @RequestBody TransportDTO transportDTO) {
-        return ResponseEntity.ok(transportService.updateTransport(id, transportDTO));
+    public ResponseEntity<Transport> updateTransport(@PathVariable Integer id,
+            @RequestBody Transport transport) {
+        return ResponseEntity.ok(transportService.updateTransport(id, transport));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTransport(@PathVariable Integer id) {
         transportService.deleteTransport(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 }

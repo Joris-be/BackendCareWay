@@ -1,7 +1,6 @@
 package com.careway.controller;
 
 import java.util.List;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,14 +10,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.careway.dto.PrescriptionDTO;
+import com.careway.entity.Prescription;
 import com.careway.service.PrescriptionService;
 
 @RestController
 @RequestMapping("/prescriptions")
 public class PrescriptionController {
-
     private final PrescriptionService prescriptionService;
 
     public PrescriptionController(PrescriptionService prescriptionService) {
@@ -26,24 +23,24 @@ public class PrescriptionController {
     }
 
     @GetMapping
-    public List<PrescriptionDTO> getAllPrescriptions() {
+    public List<Prescription> getAllPrescriptions() {
         return prescriptionService.getAllPrescriptions();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PrescriptionDTO> getPrescriptionById(@PathVariable Integer id) {
+    public ResponseEntity<Prescription> getPrescriptionById(@PathVariable Integer id) {
         return ResponseEntity.ok(prescriptionService.getPrescriptionById(id));
     }
 
     @PostMapping
-    public ResponseEntity<PrescriptionDTO> createPrescription(@RequestBody PrescriptionDTO prescriptionDTO) {
-        return ResponseEntity.ok(prescriptionService.savePrescription(prescriptionDTO));
+    public ResponseEntity<Prescription> createPrescription(@RequestBody Prescription prescription) {
+        return ResponseEntity.ok(prescriptionService.savePrescription(prescription));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PrescriptionDTO> updatePrescription(@PathVariable Integer id,
-            @RequestBody PrescriptionDTO prescriptionDTO) {
-        return ResponseEntity.ok(prescriptionService.updatePrescription(id, prescriptionDTO));
+    public ResponseEntity<Prescription> updatePrescription(@PathVariable Integer id,
+            @RequestBody Prescription prescription) {
+        return ResponseEntity.ok(prescriptionService.updatePrescription(id, prescription));
     }
 
     @DeleteMapping("/{id}")

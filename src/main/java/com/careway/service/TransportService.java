@@ -1,74 +1,40 @@
 package com.careway.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.careway.dao.TransportRepository;
-import com.careway.dto.TransportDTO;
 import com.careway.entity.Transport;
 
 @Service
 public class TransportService {
+    private final TransportRepository transportRepository;
 
-    @Autowired
-    private TransportRepository transportRepository;
-
-    public List<TransportDTO> getAllTransports() {
-        return transportRepository.findAll()
-                .stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+    public TransportService(TransportRepository transportRepository) {
+        this.transportRepository = transportRepository;
     }
 
-    public TransportDTO getTransportById(Integer id) {
-        Transport transport = transportRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Transport not found"));
-        return convertToDTO(transport);
+    public List<Transport> getAllTransports() {
+        return transportRepository.findAll();
     }
 
-    public TransportDTO saveTransport(TransportDTO transportDTO) {
-        Transport transport = convertToEntity(transportDTO);
-        Transport saved = transportRepository.save(transport);
-        return convertToDTO(saved);
+    public Transport getTransportById(Integer id) {
+        return transportRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Transport non trouvé"));
     }
 
-    public TransportDTO updateTransport(Integer id, TransportDTO transportDTO) {
-        Transport transport = transportRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Transport not found"));
-        transport.setTransportType(transportDTO.getTransportType());
-        transport.setDriver(transportDTO.getDriver());
-        transport.setVehicle(transportDTO.getVehicle());
-        transport.setPhone(transportDTO.getPhone());
-        transport.setStatus(transportDTO.getStatus());
-        Transport updated = transportRepository.save(transport);
-        return convertToDTO(updated);
+    public Transport saveTransport(Transport transport) {
+        return transportRepository.save(transport);
+    }
+
+    public Transport updateTransport(Integer id, Transport transportData) {
+        Transport transport = getTransportById(id);
+        transport.setLieudepart(transportData.getLieudepart());
+        transport.setLieuarrive(transportData.getLieuarrive());
+        transport.setTypetransport(transportData.getTypetransport());
+        return transportRepository.save(transport);
     }
 
     public void deleteTransport(Integer id) {
         transportRepository.deleteById(id);
-    }
-
-    private TransportDTO convertToDTO(Transport transport) {
-        TransportDTO dto = new TransportDTO();
-        dto.setId(transport.getId());
-        dto.setTransportType(transport.getTransportType());
-        dto.setDriver(transport.getDriver());
-        dto.setVehicle(transport.getVehicle());
-        dto.setPhone(transport.getPhone());
-        dto.setStatus(transport.getStatus());
-        return dto;
-    }
-
-    private Transport convertToEntity(TransportDTO dto) {
-        Transport transport = new Transport();
-        transport.setTransportType(dto.getTransportType());
-        transport.setDriver(dto.getDriver());
-        transport.setVehicle(dto.getVehicle());
-        transport.setPhone(dto.getPhone());
-        transport.setStatus(dto.getStatus());
-        return transport;
     }
 }
