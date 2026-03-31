@@ -48,11 +48,11 @@ INSERT INTO Evaluation(idevaluation, note, commentaire, idpatient, idtransport) 
 
 -- 7. Etape (FK: idtransport)
 INSERT INTO Etape(idetape, statut, idtransport) VALUES
-(1,'En attente',1),
-(2,'Confirme',2),
-(3,'En cours',3),
-(4,'Termine',4),
-(5,'Annule',5);
+(1,'DEPART',1),
+(2,'ARRIVE_HOPITAL',2),
+(3,'RDV_FINI',3),
+(4,'RETOUR_CHEZ_SOI',4),
+(5,'DEPART',5);
 
 -- 8. Note (FK: idtransporteur, idpatient)
 INSERT INTO Note(idnote, nombreetoiles, idtransporteur, idpatient) VALUES
