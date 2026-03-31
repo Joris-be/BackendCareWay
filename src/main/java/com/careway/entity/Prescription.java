@@ -3,6 +3,7 @@ package com.careway.entity;
 import java.util.Date;
 
 import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -46,11 +47,12 @@ public class Prescription {
 
     private Integer idpatient;
 
+    @Column(name = "idmedecin")
     private String medecin;
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "idmedecin")
+    @JoinColumn(name = "idmedecin", insertable = false, updatable = false)
     private Medecin medecinObj;
 
     @JsonIgnore
