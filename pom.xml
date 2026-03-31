@@ -78,7 +78,28 @@
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+	<!-- PDF Generation Dependencies -->
+	<dependency>
+		<groupId>com.itextpdf</groupId>
+		<artifactId>kernel</artifactId>
+		<version>7.2.5</version>
+	</dependency>
+	<dependency>
+		<groupId>com.itextpdf</groupId>
+		<artifactId>io</artifactId>
+		<version>7.2.5</version>
+	</dependency>
+	<dependency>
+		<groupId>com.itextpdf</groupId>
+		<artifactId>forms</artifactId>
+		<version>7.2.5</version>
+	</dependency>
+	<dependency>
+		<groupId>com.itextpdf</groupId>
+		<artifactId>html2pdf</artifactId>
+		<version>5.0.3</version>
+	</dependency>
+</dependencies>
 
 	<build>
 		<plugins>

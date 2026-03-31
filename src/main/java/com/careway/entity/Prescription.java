@@ -45,6 +45,9 @@ public class Prescription {
     @NonNull
     private Date dategeneration;
 
+    @Column(name = "pdf_data")
+    private byte[] pdfData;
+
     private Integer idpatient;
 
     @Column(name = "idmedecin")
