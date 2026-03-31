@@ -1,4 +1,5 @@
 package com.careway.entity;
+
 import java.util.List;
 
 import jakarta.persistence.Basic;
@@ -12,35 +13,42 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
- 
 
-@Getter @Setter @NoArgsConstructor @RequiredArgsConstructor @ToString
+@Getter
+@Setter
+@NoArgsConstructor
+@RequiredArgsConstructor
+@ToString
 @Entity
 public class Medecin {
-    
-    @Id 
-    @Basic(optional=false)
+
+    @Id
+    @Basic(optional = false)
     @NonNull
     private Integer idmedecin;
-    
-    @Basic(optional=false)
+
+    @Basic(optional = false)
     @NonNull
     private String nom;
-   
-    @Basic(optional=false)
+
+    @Basic(optional = false)
     @NonNull
     private String prenom;
 
-    @Basic(optional=false)
+    @Basic(optional = false)
     @NonNull
     private String specialite;
 
-    @Basic(optional=false)
+    @Basic(optional = false)
     @Column(unique = true)
     @NonNull
     private String rpps;
 
-    @Basic(optional=false)
+    @Basic(optional = false)
+    @NonNull
+    private String motdepasse;
+
+    @Basic(optional = false)
     @NonNull
     private String mail;
 

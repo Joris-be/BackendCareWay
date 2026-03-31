@@ -32,6 +32,11 @@ public class PrescriptionController {
         return ResponseEntity.ok(prescriptionService.getPrescriptionById(id));
     }
 
+    @GetMapping("/medecin/{medecinId}")
+    public List<Prescription> getPrescriptionsByMedecinId(@PathVariable Integer medecinId) {
+        return prescriptionService.getPrescriptionsByMedecinId(medecinId);
+    }
+
     @PostMapping
     public ResponseEntity<Prescription> createPrescription(@RequestBody Prescription prescription) {
         return ResponseEntity.ok(prescriptionService.savePrescription(prescription));

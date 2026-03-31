@@ -1,6 +1,7 @@
 package com.careway.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import com.careway.dao.PrescriptionRepository;
 import com.careway.entity.Prescription;
@@ -15,6 +16,12 @@ public class PrescriptionService {
 
     public List<Prescription> getAllPrescriptions() {
         return prescriptionRepository.findAll();
+    }
+
+    public List<Prescription> getPrescriptionsByMedecinId(Integer medecinId) {
+        return prescriptionRepository.findAll().stream()
+                .filter(p -> p.getMedecin() != null && p.getMedecin().equals(medecinId.toString()))
+                .collect(Collectors.toList());
     }
 
     public Prescription getPrescriptionById(Integer id) {
