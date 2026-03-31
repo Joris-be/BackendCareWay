@@ -48,11 +48,11 @@ INSERT INTO Evaluation(idevaluation, note, commentaire, idpatient, idtransport) 
 
 -- 7. Etape (FK: idtransport)
 INSERT INTO Etape(idetape, statut, idtransport) VALUES
-(1,'En attente',1),
-(2,'Confirme',2),
-(3,'En cours',3),
-(4,'Termine',4),
-(5,'Annule',5);
+(1,'DEPART',1),
+(2,'ARRIVE_HOPITAL',2),
+(3,'RDV_FINI',3),
+(4,'RETOUR_CHEZ_SOI',4),
+(5,'DEPART',5);
 
 -- 8. Note (FK: idtransporteur, idpatient)
 INSERT INTO Note(idnote, nombreetoiles, idtransporteur, idpatient) VALUES
@@ -69,3 +69,26 @@ INSERT INTO Remboursement(idremboursement, montant, tauxprisencharge, statutremb
 (3,200.00,0.90,'Rembourse','2026-01-25',3),
 (4,150.75,0.75,'En attente','2026-02-05',4),
 (5,310.00,0.95,'Rembourse','2026-02-10',5);
+
+-- 10. PatientFavoris (FK: idpatient, idtransporteur)
+INSERT INTO patient_favori(idpatient, idtransporteur, type_transport) VALUES
+-- Patient 1 : Jean Dupont
+(1, 1, 'AMBULANCE'),
+(1, 2, 'VSL'),
+(1, 3, 'TAXI'),
+-- Patient 2 : Sophie Martin
+(2, 1, 'AMBULANCE'),
+(2, 2, 'VSL'),
+(2, 3, 'TAXI'),
+-- Patient 3 : Pierre Bernard
+(3, 1, 'AMBULANCE'),
+(3, 2, 'VSL'),
+(3, 3, 'TAXI'),
+-- Patient 4 : Marie Leclerc
+(4, 1, 'AMBULANCE'),
+(4, 2, 'VSL'),
+(4, 3, 'TAXI'),
+-- Patient 5 : Thomas Moreau
+(5, 1, 'AMBULANCE'),
+(5, 2, 'VSL'),
+(5, 3, 'TAXI');

@@ -3,9 +3,8 @@ package com.careway.entity;
 import java.util.Date;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -74,4 +73,8 @@ public class Patient {
     // un patient donne plusieurs notes
     @OneToMany(mappedBy = "patient")
     private List<Note> notes; 
+
+    // un patient possède des transporteurs favoris
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PatientFavoris> favoris;
 }
