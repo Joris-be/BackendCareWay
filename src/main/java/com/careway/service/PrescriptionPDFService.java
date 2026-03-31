@@ -16,21 +16,11 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
-import com.itextpdf.kernel.font.PdfFontFactory;
-import com.itextpdf.kernel.font.PdfFont;
-import com.itextpdf.kernel.colors.ColorConstants;
+import com.itextpdf.layout.borders.SolidBorder;
 
 @Service
 public class PrescriptionPDFService {
 
-    /**
-     * Génère un PDF de prescription en remplissant une ordonnance de transport
-     * 
-     * @param patient  Données du patient
-     * @param medecin  Données du médecin
-     * @param formData Données du formulaire de prescription
-     * @return Bytes du PDF généré
-     */
     public byte[] generatePrescriptionPDF(Patient patient, Medecin medecin, PrescriptionFormData formData)
             throws Exception {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -38,120 +28,137 @@ public class PrescriptionPDFService {
         PdfDocument pdfDoc = new PdfDocument(writer);
         Document document = new Document(pdfDoc);
 
-        // Police standard
-        PdfFont font = PdfFontFactory.createFont();
-        PdfFont boldFont = PdfFontFactory.createFont();
+        document.setMargins(15, 15, 15, 15);
 
-        // En-tête du document
-        document.add(new Paragraph("PRESCRIPTION DE TRANSPORT MÉDICAL")
-                .setTextAlignment(TextAlignment.CENTER)
+        // ===== TITRE =====
+        document.add(new Paragraph("PRESCRIPTION MÉDICALE DE TRANSPORT")
                 .setFontSize(14)
-                .setBold());
+                .setBold()
+                .setTextAlignment(TextAlignment.CENTER)
+                .setMarginBottom(12));
 
-        document.add(new Paragraph("\n"));
-
-        // Section Informations Patient
-        document.add(createSectionTitle("DONNÉES PATIENT", boldFont, font));
+        // ===== SECTION 1: DONNÉES PATIENT =====
+        addSectionTitle(document, "DONNÉES PATIENT");
 
         Table patientTable = new Table(2);
         patientTable.setWidth(UnitValue.createPercentValue(100));
 
-        addTableRow(patientTable, "Nom Patient:", patient.getNom(), boldFont, font);
-        addTableRow(patientTable, "Prénom Patient:", patient.getPrenom(), boldFont, font);
-        addTableRow(patientTable, "NSS:", patient.getNss(), boldFont, font);
-        addTableRow(patientTable, "Date de Naissance:", formatDate(patient.getDatenaiss()), boldFont, font);
-        addTableRow(patientTable, "Maladie/Pathologie:", patient.getMaladie(), boldFont, font);
-        addTableRow(patientTable, "Téléphone:", patient.getTel(), boldFont, font);
-        addTableRow(patientTable, "Adresse:", patient.getAdresse(), boldFont, font);
+        addDataRow(patientTable, "Nom Patient:", patient.getNom());
+        addDataRow(patientTable, "Prénom Patient:", patient.getPrenom());
+        addDataRow(patientTable, "NSS:", patient.getNss());
+        addDataRow(patientTable, "Date de Naissance:", formatDate(patient.getDatenaiss()));
+        addDataRow(patientTable, "Adresse:", patient.getAdresse());
 
         document.add(patientTable);
-        document.add(new Paragraph("\n"));
+        document.add(new Paragraph(" ").setFontSize(6));
 
-        // Section Informations Médecin
-        document.add(createSectionTitle("DONNÉES MÉDECIN", boldFont, font));
+        // ===== SECTION 2: DONNÉES MÉDECIN =====
+        addSectionTitle(document, "DONNÉES MÉDECIN");
 
         Table medecinTable = new Table(2);
         medecinTable.setWidth(UnitValue.createPercentValue(100));
 
-        addTableRow(medecinTable, "Médecin:", medecin.getNom(), boldFont, font);
-        addTableRow(medecinTable, "Spécialité:", medecin.getSpecialite(), boldFont, font);
-        addTableRow(medecinTable, "RPPS:", medecin.getRpps(), boldFont, font);
-        addTableRow(medecinTable, "Date de Prescription:", formatDate(new Date()), boldFont, font);
+        addDataRow(medecinTable, "Médecin:", medecin.getNom() != null ? medecin.getNom() : "");
+        addDataRow(medecinTable, "Spécialité:", medecin.getSpecialite() != null ? medecin.getSpecialite() : "");
+        addDataRow(medecinTable, "RPPS:", medecin.getRpps() != null ? medecin.getRpps() : "");
+        addDataRow(medecinTable, "Date de Prescription:", new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
 
         document.add(medecinTable);
-        document.add(new Paragraph("\n"));
+        document.add(new Paragraph(" ").setFontSize(6));
 
-        // Section Motif et type de transport
-        document.add(createSectionTitle("INFORMATIONS PRESCRIPTION", boldFont, font));
+        // ===== SECTION 3: INFORMATIONS PRESCRIPTION =====
+        addSectionTitle(document, "INFORMATIONS PRESCRIPTION");
 
-        Table prescriptionTable = new Table(2);
-        prescriptionTable.setWidth(UnitValue.createPercentValue(100));
+        Table prescTable = new Table(2);
+        prescTable.setWidth(UnitValue.createPercentValue(100));
 
-        addTableRow(prescriptionTable, "Situation Médicale:", formatArray(formData.getSituation1()), boldFont, font);
-        addTableRow(prescriptionTable, "Date à la Médecine de Travail:", formData.getDate_at_mp(), boldFont, font);
-        addTableRow(prescriptionTable, "Mode de Transport:", formData.getMode_transport(), boldFont, font);
-        addTableRow(prescriptionTable, "Lieu de Départ:", formData.getTrajet_depart(), boldFont, font);
-        addTableRow(prescriptionTable, "Lieu d'Arrivée:", formData.getTrajet_arrivee(), boldFont, font);
-        addTableRow(prescriptionTable, "Nombre de Transports:", String.valueOf(formData.getNombre_transports()),
-                boldFont, font);
-        addTableRow(prescriptionTable, "Exonération:", formatArray(formData.getExoneration()), boldFont, font);
-        addTableRow(prescriptionTable, "Pension Militaire:", formatArray(formData.getPension_militaire()), boldFont,
-                font);
+        // Situation médicale
+        String situationText = formData.getSituation1() != null && formData.getSituation1().length > 0
+                ? formData.getSituation1()[0]
+                : "";
+        addDataRow(prescTable, "Situation Médicale:", situationText);
 
-        document.add(prescriptionTable);
-        document.add(new Paragraph("\n"));
+        // Date AT/MP
+        if (formData.getDate_at_mp() != null && !formData.getDate_at_mp().isEmpty()) {
+            addDataRow(prescTable, "Date à la Médecine de Travail:", formData.getDate_at_mp());
+        }
 
-        // Pied de page avec informations légales
-        document.add(new Paragraph("Document généré automatiquement le " + formatDate(new Date()))
-                .setTextAlignment(TextAlignment.CENTER)
-                .setFontSize(10)
-                .setFontColor(ColorConstants.GRAY));
+        // Mode de transport
+        addDataRow(prescTable, "Mode de Transport:",
+                formData.getMode_transport() != null ? formData.getMode_transport() : "");
+
+        // Trajet
+        addDataRow(prescTable, "Lieu de Départ:",
+                formData.getTrajet_depart() != null ? formData.getTrajet_depart() : "");
+        addDataRow(prescTable, "Lieu d'Arrivée:",
+                formData.getTrajet_arrivee() != null ? formData.getTrajet_arrivee() : "");
+
+        // Nombre de transports
+        if (formData.getNombre_transports() != null) {
+            addDataRow(prescTable, "Nombre de Transports:", formData.getNombre_transports().toString());
+        }
+
+        // Exonération
+        String exoText = formData.getExoneration() != null && formData.getExoneration().length > 0
+                ? formData.getExoneration()[0]
+                : "";
+        addDataRow(prescTable, "Exonération:", exoText);
+
+        // Pension militaire
+        String pensionText = formData.getPension_militaire() != null && formData.getPension_militaire().length > 0
+                ? formData.getPension_militaire()[0]
+                : "";
+        addDataRow(prescTable, "Pension Militaire:", pensionText);
+
+        document.add(prescTable);
 
         document.close();
-
         return baos.toByteArray();
     }
 
-    /**
-     * Crée une cellule de titre de section
-     */
-    private Paragraph createSectionTitle(String text, PdfFont boldFont, PdfFont font) {
-        return new Paragraph(text)
+    private void addSectionTitle(Document doc, String title) {
+        Paragraph titlePara = new Paragraph(title)
+                .setFontSize(10)
                 .setBold()
-                .setFontSize(12)
-                .setBackgroundColor(ColorConstants.LIGHT_GRAY)
-                .setMarginBottom(10);
+                .setPadding(5)
+                .setMarginTop(8)
+                .setMarginBottom(4);
+        doc.add(titlePara);
     }
 
-    /**
-     * Ajoute une ligne à une table avec label et valeur
-     */
-    private void addTableRow(Table table, String label, String value, PdfFont boldFont, PdfFont font) {
-        Cell labelCell = new Cell().add(new Paragraph(label).setBold());
-        labelCell.setBackgroundColor(ColorConstants.LIGHT_GRAY);
+    private void addDataRow(Table table, String label, String value) {
+        Cell labelCell = new Cell();
+        labelCell.setBorder(new SolidBorder(1));
+        labelCell.setPadding(6);
+        labelCell.add(new Paragraph(label).setFontSize(9).setBold());
         table.addCell(labelCell);
 
-        Cell valueCell = new Cell().add(new Paragraph(value != null ? value : "N/A"));
+        Cell valueCell = new Cell();
+        valueCell.setBorder(new SolidBorder(1));
+        valueCell.setPadding(6);
+        valueCell.add(new Paragraph(value != null ? value : "").setFontSize(9));
         table.addCell(valueCell);
     }
 
-    /**
-     * Formate une date au format dd/MM/yyyy
-     */
     private String formatDate(Date date) {
         if (date == null)
-            return "N/A";
+            return "";
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return sdf.format(date);
     }
 
-    /**
-     * Formate un array en chaîne séparée par des virgules
-     */
-    private String formatArray(String[] array) {
-        if (array == null || array.length == 0)
-            return "Aucune";
-        return String.join(", ", array);
+    private boolean contains(String[] array, String value) {
+        if (array == null)
+            return false;
+        for (String item : array) {
+            if (item != null && item.equals(value))
+                return true;
+        }
+        return false;
+    }
+
+    private boolean isSelected(String value, String checkValue) {
+        return value != null && value.equals(checkValue);
     }
 
     /**
