@@ -15,64 +15,72 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
- 
-@Getter @Setter @NoArgsConstructor @RequiredArgsConstructor @ToString
+
+@Getter
+@Setter
+@NoArgsConstructor
+@RequiredArgsConstructor
+@ToString
 @Entity
 public class Patient {
-    
-    @Id 
-    @Basic(optional=false)
+
+    @Id
+    @Basic(optional = false)
     @NonNull
     private Integer idpatient;
-    
-    @Basic(optional=false)
+
+    @Basic(optional = false)
     @NonNull
     private String prenom;
 
-    @Basic(optional=false)
+    @Basic(optional = false)
     @NonNull
     private String nom;
-   
-    @Basic(optional=false)
+
+    @Basic(optional = false)
     @NonNull
     private Date datenaiss;
 
-    @Basic(optional=false)
+    @Basic(optional = false)
     @NonNull
     @Column(unique = true)
     private String nss;
 
-    @Basic(optional=false)
+    @Basic(optional = false)
+    @NonNull
+    private String motdepasse;
+
+    @Basic(optional = false)
     @NonNull
     private String adresse;
-    
-    @Basic(optional=false)
+
+    @Basic(optional = false)
     @NonNull
     private String tel;
 
-    @Basic(optional=false)
+    @Basic(optional = false)
     @NonNull
     private String mail;
 
-    @Basic(optional=false)
+    @Basic(optional = false)
     @NonNull
     private String genre;
-   
-    @Basic(optional=false)
+
+    @Basic(optional = false)
     @NonNull
     private String pays;
 
     // un patient possède plusieurs prescriptions
     @OneToMany(mappedBy = "patient")
-    private List<Prescription> prescriptions; 
+    private List<Prescription> prescriptions;
 
     // un patient écrit plusieurs évaluations
     @OneToMany(mappedBy = "patient")
-    private List<Evaluation> evaluations; 
+    private List<Evaluation> evaluations;
 
     // un patient donne plusieurs notes
     @OneToMany(mappedBy = "patient")
-    private List<Note> notes; 
+    private List<Note> notes;
 
     // un patient possède des transporteurs favoris
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
