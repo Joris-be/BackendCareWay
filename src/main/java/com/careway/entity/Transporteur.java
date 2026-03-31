@@ -45,4 +45,7 @@ public class Transporteur {
     @ManyToOne
     @JoinColumn(name = "idtransport")
     private Transport transport;
+
+    @OneToMany(mappedBy = "transporteur")
+    private List<PatientFavoris> patientsFavoris;
 }
