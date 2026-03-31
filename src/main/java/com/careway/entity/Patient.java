@@ -56,6 +56,10 @@ public class Patient {
 
     @Basic(optional = false)
     @NonNull
+    private String maladie;
+
+    @Basic(optional = false)
+    @NonNull
     private String tel;
 
     @Basic(optional = false)

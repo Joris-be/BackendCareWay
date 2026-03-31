@@ -31,6 +31,7 @@ public class PatientService {
         dto.setDatenaiss(patient.getDatenaiss());
         dto.setNss(patient.getNss());
         dto.setAdresse(patient.getAdresse());
+        dto.setMaladie(patient.getMaladie());
         dto.setTel(patient.getTel());
         dto.setMail(patient.getMail());
         dto.setGenre(patient.getGenre());
@@ -90,6 +91,7 @@ public class PatientService {
         patient.setDatenaiss(dto.getDatenaiss());
         patient.setNss(dto.getNss());
         patient.setAdresse(dto.getAdresse());
+        patient.setMaladie(dto.getMaladie());
         patient.setTel(dto.getTel());
         patient.setMail(dto.getMail());
         patient.setGenre(dto.getGenre());

@@ -7,12 +7,12 @@ INSERT INTO Medecin(idmedecin, nom, prenom, specialite, rpps, motdepasse, mail) 
 (5,'Leclerc','Thomas','Neurologue','10567890123','MedPass123','thomas.leclerc@gmail.com');
 
 -- 2. Patient (pas de FK)
-INSERT INTO Patient(idpatient, prenom, nom, datenaiss, nss, motdepasse, adresse, tel, mail, genre, pays) VALUES
-(1,'Jean','Dupont','1985-03-15','185037512345678','PatPass123','12 rue de la Paix, Paris','0612345678','jean.dupont@gmail.com','M','France'),
-(2,'Sophie','Martin','1990-07-22','290077523456789','PatPass123','5 avenue des Fleurs, Lyon','0623456789','sophie.martin@gmail.com','F','France'),
-(3,'Pierre','Bernard','1978-11-30','178117534567890','PatPass123','8 boulevard Victor Hugo, Marseille','0634567890','pierre.bernard@gmail.com','M','France'),
-(4,'Marie','Leclerc','1995-02-14','295027545678901','PatPass123','3 rue du Moulin, Bordeaux','0645678901','marie.leclerc@gmail.com','F','France'),
-(5,'Thomas','Moreau','1965-09-08','165097556789012','PatPass123','27 rue des Lilas, Toulouse','0656789012','thomas.moreau@gmail.com','M','France');
+INSERT INTO Patient(idpatient, prenom, nom, datenaiss, nss, motdepasse, adresse, maladie, tel, mail, genre, pays) VALUES
+(1,'Jean','Dupont','1985-03-15','185037512345678','PatPass123','12 rue de la Paix, Paris','Arythmie cardiaque','0612345678','jean.dupont@gmail.com','M','France'),
+(2,'Sophie','Martin','1990-07-22','290077523456789','PatPass123','5 avenue des Fleurs, Lyon','Entorse', '0623456789','sophie.martin@gmail.com','F','France'),
+(3,'Pierre','Bernard','1978-11-30','178117534567890','PatPass123','8 boulevard Victor Hugo, Marseille','Migraines','0634567890','pierre.bernard@gmail.com','M','France'),
+(4,'Marie','Leclerc','1995-02-14','295027545678901','PatPass123','3 rue du Moulin, Bordeaux','Diabète type 2','0645678901','marie.leclerc@gmail.com','F','France'),
+(5,'Thomas','Moreau','1965-09-08','165097556789012','PatPass123','27 rue des Lilas, Toulouse','Insuffisance rénale','0656789012','thomas.moreau@gmail.com','M','France');
 
 -- 3. Transport (pas de FK)
 INSERT INTO Transport(idtransport, datetransport, lieudepart, lieuarrive, typetransport) VALUES

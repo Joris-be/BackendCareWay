@@ -6,7 +6,8 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 public class PatientDTO {
     private Integer idpatient;
     private String prenom;
@@ -14,6 +15,7 @@ public class PatientDTO {
     private Date datenaiss;
     private String nss;
     private String adresse;
+    private String maladie;
     private String tel;
     private String mail;
     private String genre;
