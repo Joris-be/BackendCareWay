@@ -13,32 +13,38 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Getter @Setter @NoArgsConstructor @RequiredArgsConstructor @ToString
+@Getter
+@Setter
+@NoArgsConstructor
+@RequiredArgsConstructor
+@ToString
 @Entity
 public class Remboursement {
-    
-    @Id 
-    @Basic(optional=false)
+
+    @Id
+    @Basic(optional = false)
     @NonNull
     private Integer idremboursement;
-    
-    @Basic(optional=false)
+
+    @Basic(optional = false)
     @NonNull
     private float montant;
-   
-    @Basic(optional=false)
+
+    @Basic(optional = false)
     @NonNull
     private float tauxprisencharge;
 
-    @Basic(optional=false)
+    @Basic(optional = false)
     @NonNull
     private String statutremboursement;
 
-    @Basic(optional=false)
+    @Basic(optional = false)
     @NonNull
     private Date dateremboursement;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "idtransport")
     private Transport transport;

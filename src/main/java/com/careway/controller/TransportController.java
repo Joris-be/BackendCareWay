@@ -32,6 +32,11 @@ public class TransportController {
         return ResponseEntity.ok(transportService.getTransportById(id));
     }
 
+    @GetMapping("/patient/{idpatient}")
+    public List<Transport> getTransportsByPatient(@PathVariable Integer idpatient) {
+        return transportService.getTransportsByPatient(idpatient);
+    }
+
     @PostMapping
     public ResponseEntity<Transport> createTransport(@RequestBody Transport transport) {
         return ResponseEntity.ok(transportService.saveTransport(transport));

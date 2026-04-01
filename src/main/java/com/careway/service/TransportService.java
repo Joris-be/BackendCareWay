@@ -22,6 +22,10 @@ public class TransportService {
                 .orElseThrow(() -> new RuntimeException("Transport non trouvé"));
     }
 
+    public List<Transport> getTransportsByPatient(Integer idpatient) {
+        return transportRepository.findByIdpatient(idpatient);
+    }
+
     public Transport saveTransport(Transport transport) {
         return transportRepository.save(transport);
     }
@@ -31,6 +35,7 @@ public class TransportService {
         transport.setLieudepart(transportData.getLieudepart());
         transport.setLieuarrive(transportData.getLieuarrive());
         transport.setTypetransport(transportData.getTypetransport());
+        transport.setStatut(transportData.getStatut());
         return transportRepository.save(transport);
     }
 

@@ -14,34 +14,40 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
- 
-@Getter @Setter @NoArgsConstructor @RequiredArgsConstructor @ToString
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@RequiredArgsConstructor
+@ToString
 @Entity
 public class Transporteur {
-    @Id 
-    @Basic(optional=false)
+    @Id
+    @Basic(optional = false)
     @NonNull
     private Integer idtransporteur;
-    
-    @Basic(optional=false)
+
+    @Basic(optional = false)
     @NonNull
     private String nom;
-   
-    @Basic(optional=false)
+
+    @Basic(optional = false)
     @NonNull
     private String prenom;
 
-    @Basic(optional=false)
+    @Basic(optional = false)
     @NonNull
     private String tel;
 
-    @Basic(optional=false)
+    @Basic(optional = false)
     @NonNull
     private String mail;
 
     @OneToMany(mappedBy = "transporteur")
     private List<Note> notes;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "idtransport")
     private Transport transport;

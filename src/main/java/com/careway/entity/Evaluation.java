@@ -11,27 +11,34 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
- 
-@Getter @Setter @NoArgsConstructor @RequiredArgsConstructor @ToString
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@RequiredArgsConstructor
+@ToString
 @Entity
 public class Evaluation {
-    @Id 
-    @Basic(optional=false)
+    @Id
+    @Basic(optional = false)
     @NonNull
     private Integer idevaluation;
-    
-    @Basic(optional=false)
+
+    @Basic(optional = false)
     @NonNull
     private float note;
-   
-    @Basic(optional=false)
+
+    @Basic(optional = false)
     @NonNull
     private String commentaire;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "idpatient")
     private Patient patient;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "idtransport")
     private Transport transport;

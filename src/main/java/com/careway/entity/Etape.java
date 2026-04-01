@@ -13,21 +13,27 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
- 
-@Getter @Setter @NoArgsConstructor @RequiredArgsConstructor @ToString
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@RequiredArgsConstructor
+@ToString
 @Entity
 public class Etape {
-    
-    @Id 
-    @Basic(optional=false)
+
+    @Id
+    @Basic(optional = false)
     @NonNull
     private Integer idetape;
-    
-    @Basic(optional=false)
+
+    @Basic(optional = false)
     @NonNull
     @Enumerated(EnumType.STRING)
     private Statut statut;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "idtransport")
     private Transport transport;
