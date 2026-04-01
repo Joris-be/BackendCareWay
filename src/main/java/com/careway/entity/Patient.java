@@ -71,7 +71,6 @@ public class Patient {
     private String genre;
 
     @Basic(optional = true)
-    @Column(columnDefinition = "LONGTEXT")
     private String image;
 
     @Basic(optional = false)

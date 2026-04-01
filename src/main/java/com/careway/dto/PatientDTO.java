@@ -20,6 +20,7 @@ public class PatientDTO {
     private String mail;
     private String genre;
     private String pays;
+    private String image;
     private List<Integer> idEvaluations;
     private List<Integer> idNotes;
     private List<Integer> idPrescriptions;

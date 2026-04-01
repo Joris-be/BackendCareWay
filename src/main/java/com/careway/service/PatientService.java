@@ -36,6 +36,7 @@ public class PatientService {
         dto.setMail(patient.getMail());
         dto.setGenre(patient.getGenre());
         dto.setPays(patient.getPays());
+        dto.setImage(patient.getImage());
 
         if (patient.getEvaluations() != null) {
             dto.setIdEvaluations(
@@ -96,6 +97,7 @@ public class PatientService {
         patient.setMail(dto.getMail());
         patient.setGenre(dto.getGenre());
         patient.setPays(dto.getPays());
+        patient.setImage(dto.getImage());
         return toDTO(patientRepository.save(patient));
     }
 
