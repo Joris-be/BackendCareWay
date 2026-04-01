@@ -28,14 +28,14 @@ public class TransportController {
         return transportService.getAllTransports();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Transport> getTransportById(@PathVariable Integer id) {
-        return ResponseEntity.ok(transportService.getTransportById(id));
-    }
-
     @GetMapping("/patient/{idpatient}")
     public List<TransportDTO> getTransportsByPatient(@PathVariable Integer idpatient) {
         return transportService.getTransportsByPatient(idpatient);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Transport> getTransportById(@PathVariable Integer id) {
+        return ResponseEntity.ok(transportService.getTransportById(id));
     }
 
     @PostMapping
