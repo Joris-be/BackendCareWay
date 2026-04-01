@@ -15,6 +15,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Getter
 @Setter
@@ -78,18 +79,22 @@ public class Patient {
     private String pays;
 
     // un patient possède plusieurs prescriptions
+    @JsonIgnore
     @OneToMany(mappedBy = "patient")
     private List<Prescription> prescriptions;
 
     // un patient écrit plusieurs évaluations
+    @JsonIgnore
     @OneToMany(mappedBy = "patient")
     private List<Evaluation> evaluations;
 
     // un patient donne plusieurs notes
+    @JsonIgnore
     @OneToMany(mappedBy = "patient")
     private List<Note> notes;
 
     // un patient possède des transporteurs favoris
+    @JsonIgnore
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PatientFavoris> favoris;
 }

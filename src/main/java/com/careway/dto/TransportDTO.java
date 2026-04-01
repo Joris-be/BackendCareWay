@@ -1,20 +1,22 @@
 package com.careway.dto;
 
 import java.util.Date;
-import java.util.List;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class TransportDTO {
     private Integer idtransport;
     private Date datetransport;
     private String lieudepart;
     private String lieuarrive;
     private String typetransport;
-    private List<Integer> idEtapes;
-    private List<Integer> idEvaluations;
-    private Integer idRemboursement;
-    private List<Integer> idTransporteurs;
+    private Integer idpatient;
+    private String statut;
 }

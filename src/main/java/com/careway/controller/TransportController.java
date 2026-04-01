@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.careway.dto.TransportDTO;
 import com.careway.entity.Transport;
 import com.careway.service.TransportService;
 
@@ -33,7 +34,7 @@ public class TransportController {
     }
 
     @GetMapping("/patient/{idpatient}")
-    public List<Transport> getTransportsByPatient(@PathVariable Integer idpatient) {
+    public List<TransportDTO> getTransportsByPatient(@PathVariable Integer idpatient) {
         return transportService.getTransportsByPatient(idpatient);
     }
 

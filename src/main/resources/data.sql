@@ -19,15 +19,15 @@ UPDATE Patient SET image = 'https://images.unsplash.com/photo-1507003211169-0a1d
 
 -- 3. Transport (pas de FK)
 INSERT INTO Transport(idtransport, datetransport, lieudepart, lieuarrive, typetransport, idpatient, statut) VALUES
--- Transports anciens (terminés) - Jean Dupont (patient 1)
 (1,'2026-01-10','12 rue de la Paix, Paris','Hopital Lariboisiere, Paris','Ambulance', 1, 'TERMINE'),
 (6,'2026-03-15','12 rue de la Paix, Paris','Clinique du Parc, Paris','VSL', 1, 'TERMINE'),
 (7,'2026-03-25','12 rue de la Paix, Paris','Hopital Saint-Antoine, Paris','Ambulance', 1, 'TERMINE'),
--- Transports à venir - Jean Dupont (patient 1)
+(11,'2026-03-30','12 rue de la Paix, Paris','Hopital Ambroise Pare, Paris','Ambulance', 1, 'TERMINE'),
 (8,'2026-04-05','12 rue de la Paix, Paris','Centre de Rééducation, Paris','VSL', 1, 'PLANIFIE'),
 (9,'2026-04-20','12 rue de la Paix, Paris','Hopital Bichat, Paris','Ambulance', 1, 'PLANIFIE'),
 (10,'2026-05-10','12 rue de la Paix, Paris','Clinique cardio, Paris','VSL', 1, 'PLANIFIE'),
--- Autres patients (transports sans patient spécifique)
+(12,'2026-05-28','12 rue de la Paix, Paris','Hopital Tenon, Paris','VSL', 1, 'PLANIFIE'),
+(13,'2026-06-15','12 rue de la Paix, Paris','Hopital Necker, Paris','Ambulance', 1, 'PLANIFIE'),
 (2,'2026-01-15','5 avenue des Fleurs, Lyon','Clinique du Parc, Lyon','VSL', 2, 'TERMINE'),
 (3,'2026-01-20','8 boulevard Victor Hugo, Marseille','Hopital de la Timone, Marseille','Ambulance', 3, 'TERMINE'),
 (4,'2026-02-01','3 rue du Moulin, Bordeaux','Clinique Saint-Augustin, Bordeaux','VSL', 4, 'TERMINE'),
@@ -55,7 +55,8 @@ INSERT INTO Evaluation(idevaluation, note, commentaire, idpatient, idtransport) 
 (2,3.0,'Transport correct mais leger retard',2,2),
 (3,5.0,'Excellent service',3,3),
 (4,2.5,'Chauffeur peu courtois',4,4),
-(5,4.0,'Bon transport',5,5);
+(5,4.0,'Bon transport',5,5),
+(6,4.8,'Excellent service et ponctuel',1,11);
 
 -- 7. Etape (FK: idtransport)
 INSERT INTO Etape(idetape, statut, idtransport) VALUES
@@ -63,7 +64,12 @@ INSERT INTO Etape(idetape, statut, idtransport) VALUES
 (2,'ARRIVE_HOPITAL',2),
 (3,'RDV_FINI',3),
 (4,'RETOUR_CHEZ_SOI',4),
-(5,'DEPART',5);
+(5,'DEPART',5),
+(6,'ARRIVE_HOPITAL',11),
+(7,'RDV_FINI',11),
+(8,'RETOUR_CHEZ_SOI',11),
+(9,'DEPART',12),
+(10,'DEPART',13);
 
 -- 8. Note (FK: idtransporteur, idpatient)
 INSERT INTO Note(idnote, nombreetoiles, idtransporteur, idpatient) VALUES
@@ -79,7 +85,10 @@ INSERT INTO Remboursement(idremboursement, montant, tauxprisencharge, statutremb
 (2,85.00,0.65,'Rembourse','2026-01-20',2),
 (3,200.00,0.90,'Rembourse','2026-01-25',3),
 (4,150.75,0.75,'En attente','2026-02-05',4),
-(5,310.00,0.95,'Rembourse','2026-02-10',5);
+(5,310.00,0.95,'Rembourse','2026-02-10',5),
+(6,165.00,0.85,'Rembourse','2026-04-05',11),
+(7,95.00,0.70,'En attente','2026-06-15',12),
+(8,175.00,0.80,'En attente','2026-06-20',13);
 
 -- 10. PatientFavoris (FK: idpatient, idtransporteur)
 INSERT INTO patient_favori(idpatient, idtransporteur, type_transport) VALUES

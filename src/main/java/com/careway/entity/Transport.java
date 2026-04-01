@@ -59,17 +59,21 @@ public class Transport {
     private String statut;
 
     // un transport compose plusieurs étapes
+    @JsonIgnore
     @OneToMany(mappedBy = "transport")
     private List<Etape> etapes;
 
     // un transport possède plusieurs évaluations
+    @JsonIgnore
     @OneToMany(mappedBy = "transport")
     private List<Evaluation> evaluations;
 
     // un transport a 0 ou 1 remboursement
+    @JsonIgnore
     @OneToOne(mappedBy = "transport")
     private Remboursement remboursement;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "transport")
     private List<Transporteur> transporteurs;
 }
