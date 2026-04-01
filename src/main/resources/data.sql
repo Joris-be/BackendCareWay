@@ -19,19 +19,19 @@ UPDATE Patient SET image = 'https://images.unsplash.com/photo-1507003211169-0a1d
 
 -- 3. Transport (pas de FK)
 INSERT INTO Transport(idtransport, datetransport, lieudepart, lieuarrive, typetransport, idpatient, statut) VALUES
-(1,'2026-01-10','12 rue de la Paix, Paris','Hopital Lariboisiere, Paris','Ambulance', 1, 'TERMINE'),
-(6,'2026-03-15','12 rue de la Paix, Paris','Clinique du Parc, Paris','VSL', 1, 'TERMINE'),
-(7,'2026-03-25','12 rue de la Paix, Paris','Hopital Saint-Antoine, Paris','Ambulance', 1, 'TERMINE'),
-(11,'2026-03-30','12 rue de la Paix, Paris','Hopital Ambroise Pare, Paris','Ambulance', 1, 'TERMINE'),
-(8,'2026-04-05','12 rue de la Paix, Paris','Centre de Rééducation, Paris','VSL', 1, 'PLANIFIE'),
-(9,'2026-04-20','12 rue de la Paix, Paris','Hopital Bichat, Paris','Ambulance', 1, 'PLANIFIE'),
-(10,'2026-05-10','12 rue de la Paix, Paris','Clinique cardio, Paris','VSL', 1, 'PLANIFIE'),
-(12,'2026-05-28','12 rue de la Paix, Paris','Hopital Tenon, Paris','VSL', 1, 'PLANIFIE'),
-(13,'2026-06-15','12 rue de la Paix, Paris','Hopital Necker, Paris','Ambulance', 1, 'PLANIFIE'),
-(2,'2026-01-15','5 avenue des Fleurs, Lyon','Clinique du Parc, Lyon','VSL', 2, 'TERMINE'),
-(3,'2026-01-20','8 boulevard Victor Hugo, Marseille','Hopital de la Timone, Marseille','Ambulance', 3, 'TERMINE'),
-(4,'2026-02-01','3 rue du Moulin, Bordeaux','Clinique Saint-Augustin, Bordeaux','VSL', 4, 'TERMINE'),
-(5,'2026-02-05','27 rue des Lilas, Toulouse','Hopital Rangueil, Toulouse','Ambulance', 5, 'TERMINE');
+(1,'2026-01-10 08:00:00','12 rue de la Paix, Paris','Hopital Lariboisiere, Paris','Ambulance', 1, 'TERMINE'),
+(6,'2026-03-15 09:30:00','12 rue de la Paix, Paris','Clinique du Parc, Paris','VSL', 1, 'TERMINE'),
+(7,'2026-03-25 10:45:00','12 rue de la Paix, Paris','Hopital Saint-Antoine, Paris','Ambulance', 1, 'TERMINE'),
+(11,'2026-03-30 14:15:00','12 rue de la Paix, Paris','Hopital Ambroise Pare, Paris','Ambulance', 1, 'TERMINE'),
+(8,'2026-04-05 08:30:00','12 rue de la Paix, Paris','Centre de Rééducation, Paris','VSL', 1, 'PLANIFIE'),
+(9,'2026-04-20 15:00:00','12 rue de la Paix, Paris','Hopital Bichat, Paris','Ambulance', 1, 'PLANIFIE'),
+(10,'2026-05-10 09:45:00','12 rue de la Paix, Paris','Clinique cardio, Paris','VSL', 1, 'PLANIFIE'),
+(12,'2026-05-28 16:30:00','12 rue de la Paix, Paris','Hopital Tenon, Paris','VSL', 1, 'PLANIFIE'),
+(13,'2026-06-15 13:15:00','12 rue de la Paix, Paris','Hopital Necker, Paris','Ambulance', 1, 'PLANIFIE'),
+(2,'2026-01-15 08:45:00','5 avenue des Fleurs, Lyon','Clinique du Parc, Lyon','VSL', 2, 'TERMINE'),
+(3,'2026-01-20 10:00:00','8 boulevard Victor Hugo, Marseille','Hopital de la Timone, Marseille','Ambulance', 3, 'TERMINE'),
+(4,'2026-02-01 14:30:00','3 rue du Moulin, Bordeaux','Clinique Saint-Augustin, Bordeaux','VSL', 4, 'TERMINE'),
+(5,'2026-02-05 09:15:00','27 rue des Lilas, Toulouse','Hopital Rangueil, Toulouse','Ambulance', 5, 'TERMINE');
 
 -- 4. Prescription (FK: idmedecin, idpatient)
 INSERT INTO Prescription(idprescription, motifmedical, typetransport, dateprescription, dategeneration, idmedecin, idpatient) VALUES
