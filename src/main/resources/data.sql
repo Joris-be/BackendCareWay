@@ -117,3 +117,10 @@ INSERT INTO patient_favori(idpatient, idtransporteur, type_transport) VALUES
 (5, 1, 'AMBULANCE'),
 (5, 2, 'VSL'),
 (5, 3, 'TAXI');
+
+-- 11. Notifications pour Jean Dupont (Patient ID 1)
+INSERT INTO notifications(patient_id, title, message, type, date, read_status) VALUES
+(1,'Nouvelle prescription','Dr. Lamar Kendrick vous a créé une prescription : Consultation cardiologie','PRESCRIPTION','2026-01-09','false'),
+(1,'Transport programmé','Votre transport a été programmé pour le 10/01/2026 à 08:00','TRANSPORT','2026-01-09','false'),
+(1,'Document disponible','Votre prescription PDF est prête à être téléchargée','DOCUMENT','2026-01-09','true'),
+(1,'Rappel de rendez-vous','Rendez-vous demain à l''Hopital Lariboisiere à 08:00','REMINDER','2026-01-09','false');

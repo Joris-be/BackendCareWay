@@ -1,5 +1,6 @@
 package com.careway.service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,6 +12,7 @@ import com.careway.dto.PrescriptionFormDTO;
 import com.careway.entity.Prescription;
 import com.careway.entity.Patient;
 import com.careway.entity.Medecin;
+import com.careway.entity.Notification;
 import com.careway.service.PrescriptionPDFService.PrescriptionFormData;
 
 @Service
@@ -19,15 +21,18 @@ public class PrescriptionService {
     private final PatientRepository patientRepository;
     private final MedecinRepository medecinRepository;
     private final PrescriptionPDFService pdfService;
+    private final NotificationService notificationService;
 
     public PrescriptionService(PrescriptionRepository prescriptionRepository,
             PatientRepository patientRepository,
             MedecinRepository medecinRepository,
-            PrescriptionPDFService pdfService) {
+            PrescriptionPDFService pdfService,
+            NotificationService notificationService) {
         this.prescriptionRepository = prescriptionRepository;
         this.patientRepository = patientRepository;
         this.medecinRepository = medecinRepository;
         this.pdfService = pdfService;
+        this.notificationService = notificationService;
     }
 
     public List<Prescription> getAllPrescriptions() {
@@ -101,7 +106,12 @@ public class PrescriptionService {
                 .orElse(0);
         prescription.setIdprescription(maxId + 1);
 
-        return prescriptionRepository.save(prescription);
+        Prescription savedPrescription = prescriptionRepository.save(prescription);
+        
+        // Créer une notification pour le patient
+        createPrescriptionNotification(patient, medecin, formData.getMode_transport());
+        
+        return savedPrescription;
     }
 
     public Prescription updatePrescription(Integer id, Prescription prescriptionData) {
@@ -115,5 +125,24 @@ public class PrescriptionService {
 
     public void deletePrescription(Integer id) {
         prescriptionRepository.deleteById(id);
+    }
+
+    /**
+     * Crée une notification pour le patient quand une prescription est créée
+     */
+    private void createPrescriptionNotification(Patient patient, Medecin medecin, String typeTransport) {
+        try {
+            Notification notification = new Notification();
+            notification.setPatientId(patient.getIdpatient());
+            notification.setTitle("Nouvelle prescription");
+            notification.setMessage("Dr. " + medecin.getPrenom() + " " + medecin.getNom() + " vous a créé une prescription : "+ typeTransport);
+            notification.setType("PRESCRIPTION");
+            notification.setDate(LocalDateTime.now().toString());
+            notification.setRead(false);
+            
+            notificationService.saveNotification(notification);
+        } catch (Exception e) {
+            System.err.println("Erreur lors de la création de la notification : " + e.getMessage());
+        }
     }
 }

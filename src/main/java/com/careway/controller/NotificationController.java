@@ -54,4 +54,9 @@ public class NotificationController {
         notificationService.deleteNotification(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/patient/{patientId}")
+    public List<Notification> getNotificationsByPatient(@PathVariable Integer patientId) {
+        return notificationService.getNotificationsByPatientId(patientId);
+    }
 }

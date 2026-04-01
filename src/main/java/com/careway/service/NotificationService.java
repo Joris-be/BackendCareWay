@@ -45,4 +45,8 @@ public class NotificationService {
     public void deleteNotification(Integer id) {
         notificationRepository.deleteById(id);
     }
+
+    public List<Notification> getNotificationsByPatientId(Integer patientId) {
+        return notificationRepository.findByPatientId(patientId);
+    }
 }
