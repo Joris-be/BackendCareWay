@@ -19,4 +19,5 @@ public class TransportDTO {
     private String typetransport;
     private Integer idpatient;
     private String statut;
+    private TransporteurDTO transporteur;
 }

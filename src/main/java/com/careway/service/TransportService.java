@@ -4,7 +4,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import com.careway.dao.TransportRepository;
 import com.careway.dto.TransportDTO;
+import com.careway.dto.TransporteurDTO;
 import com.careway.entity.Transport;
+import com.careway.entity.Transporteur;
 
 @Service
 public class TransportService {
@@ -54,6 +56,19 @@ public class TransportService {
         dto.setTypetransport(transport.getTypetransport());
         dto.setIdpatient(transport.getIdpatient());
         dto.setStatut(transport.getStatut());
+
+        // Ajouter le transporteur si disponible
+        if (transport.getTransporteurs() != null && !transport.getTransporteurs().isEmpty()) {
+            Transporteur transporteur = transport.getTransporteurs().get(0);
+            TransporteurDTO transporteurDTO = new TransporteurDTO();
+            transporteurDTO.setIdtransporteur(transporteur.getIdtransporteur());
+            transporteurDTO.setNom(transporteur.getNom());
+            transporteurDTO.setPrenom(transporteur.getPrenom());
+            transporteurDTO.setTel(transporteur.getTel());
+            transporteurDTO.setMail(transporteur.getMail());
+            dto.setTransporteur(transporteurDTO);
+        }
+
         return dto;
     }
 }

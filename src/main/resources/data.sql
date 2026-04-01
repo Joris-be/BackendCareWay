@@ -44,10 +44,14 @@ INSERT INTO Prescription(idprescription, motifmedical, typetransport, dateprescr
 -- 5. Transporteur (FK: idtransport)
 INSERT INTO Transporteur(idtransporteur, nom, prenom, tel, mail, idtransport) VALUES
 (1,'Durand','Lucas','0611111111','lucas.durand@gmail.com',1),
-(2,'Leroy','Maxime','0622222222','maxime.leroy@gmail.com',2),
-(3,'Bonnet','Kevin','0633333333','kevin.bonnet@gmail.com',3),
-(4,'Girard','Julien','0644444444','julien.girard@gmail.com',4),
-(5,'Roux','Alexandre','0655555555','alexandre.roux@gmail.com',5);
+(2,'Leroy','Maxime','0622222222','maxime.leroy@gmail.com',6),
+(3,'Bonnet','Kevin','0633333333','kevin.bonnet@gmail.com',7),
+(4,'Girard','Julien','0644444444','julien.girard@gmail.com',8),
+(5,'Roux','Alexandre','0655555555','alexandre.roux@gmail.com',9),
+(6,'Michel','Jean','0666666666','jean.michel@gmail.com',10),
+(7,'Carpentier','Marc','0677777777','marc.carpentier@gmail.com',11),
+(8,'Dupuis','François','0688888888','francois.dupuis@gmail.com',12),
+(9,'Sanchez','Pablo','0699999999','pablo.sanchez@gmail.com',13);
 
 -- 6. Evaluation (FK: idpatient, idtransport)
 INSERT INTO Evaluation(idevaluation, note, commentaire, idpatient, idtransport) VALUES
