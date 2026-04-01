@@ -1,6 +1,8 @@
 package com.careway.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,9 +46,11 @@ public class NotificationController {
     }
 
     @PutMapping("/{id}/read")
-    public ResponseEntity<Void> markAsRead(@PathVariable Integer id) {
+    public ResponseEntity<Map<String, String>> markAsRead(@PathVariable Integer id) {
         notificationService.markAsRead(id);
-        return ResponseEntity.ok().build();
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Notification marked as read");
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
