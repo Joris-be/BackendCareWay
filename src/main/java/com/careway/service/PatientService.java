@@ -131,4 +131,24 @@ public class PatientService {
                 .map(this::toDTO)
                 .collect(Collectors.toList());
     }
+
+    // Changer le mot de passe d'un patient
+    public void changePassword(Integer patientId, String currentPassword, String newPassword) {
+        Patient patient = patientRepository.findById(patientId)
+                .orElseThrow(() -> new RuntimeException("Patient introuvable : " + patientId));
+
+        // Vérifier que le mot de passe actuel est correct
+        if (!patient.getMotdepasse().equals(currentPassword)) {
+            throw new RuntimeException("Mot de passe actuel incorrect");
+        }
+
+        // Vérifier que le nouveau mot de passe n'est pas vide
+        if (newPassword == null || newPassword.trim().isEmpty()) {
+            throw new RuntimeException("Le nouveau mot de passe ne peut pas être vide");
+        }
+
+        // Mettre à jour le mot de passe
+        patient.setMotdepasse(newPassword);
+        patientRepository.save(patient);
+    }
 }

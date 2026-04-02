@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.careway.dto.ChangePasswordDTO;
 import com.careway.dto.PatientDTO;
 import com.careway.service.PatientService;
 
@@ -48,5 +49,15 @@ public class PatientController {
     @GetMapping("/medecin/{medecinId}")
     public List<PatientDTO> getPatientsByMedecinId(@PathVariable Integer medecinId) {
         return patientService.getPatientsByMedecinId(medecinId);
+    }
+
+    @PostMapping("/{id}/change-password")
+    public ResponseEntity<String> changePassword(@PathVariable Integer id, @RequestBody ChangePasswordDTO dto) {
+        try {
+            patientService.changePassword(id, dto.getCurrentPassword(), dto.getNewPassword());
+            return ResponseEntity.ok("Mot de passe changé avec succès");
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }
