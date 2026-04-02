@@ -79,6 +79,7 @@ public class PrescriptionService {
                 formData.getSituation1(),
                 formData.getDate_at_mp(),
                 formData.getMode_transport(),
+                formData.getVehiculeType(),
                 formData.getTrajet_depart(),
                 formData.getTrajet_depart_autre(),
                 formData.getTrajet_depart_structure(),
@@ -99,7 +100,7 @@ public class PrescriptionService {
         prescription.setMotifmedical(
                 String.join(", ", formData.getSituation1() != null ? formData.getSituation1() : new String[0]));
         prescription
-                .setTypetransport(formData.getMode_transport() != null ? formData.getMode_transport() : "Non spécifié");
+                .setTypetransport(formData.getVehiculeType() != null ? formData.getVehiculeType() : "Non spécifié");
         prescription.setDateprescription(new Date());
         prescription.setDategeneration(new Date());
         prescription.setPdfData(pdfBytes);
@@ -165,6 +166,7 @@ public class PrescriptionService {
         PrescriptionFormData pdfFormData = new PrescriptionFormData(
                 new String[] { prescription.getMotifmedical() },
                 prescription.getDateprescription().toString(),
+                prescription.getTypetransport(),
                 prescription.getTypetransport(),
                 "domicile",
                 "",

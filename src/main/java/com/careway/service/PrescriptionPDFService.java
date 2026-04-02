@@ -87,11 +87,19 @@ public class PrescriptionPDFService {
         addDataRow(prescTable, "Mode de Transport:",
                 formData.getMode_transport() != null ? formData.getMode_transport() : "");
 
-        // Trajet
-        addDataRow(prescTable, "Lieu de Départ:",
-                formData.getTrajet_depart() != null ? formData.getTrajet_depart() : "");
-        addDataRow(prescTable, "Lieu d'Arrivée:",
-                formData.getTrajet_arrivee() != null ? formData.getTrajet_arrivee() : "");
+        // Type de véhicule
+        addDataRow(prescTable, "Type de Véhicule:",
+                formData.getVehiculeType() != null ? formData.getVehiculeType() : "");
+
+        // Trajet - Lieu de Départ
+        String lieuDepart = getAddressForLocation(formData.getTrajet_depart(),
+                formData.getTrajet_depart_autre(), formData.getTrajet_depart_structure(), patient);
+        addDataRow(prescTable, "Lieu de Départ:", lieuDepart);
+
+        // Trajet - Lieu d'Arrivée
+        String lieuArrivee = getAddressForLocation(formData.getTrajet_arrivee(),
+                formData.getTrajet_arrivee_autre(), formData.getTrajet_arrivee_structure(), patient);
+        addDataRow(prescTable, "Lieu d'Arrivée:", lieuArrivee);
 
         // Nombre de transports
         if (formData.getNombre_transports() != null) {
@@ -162,12 +170,35 @@ public class PrescriptionPDFService {
     }
 
     /**
+     * Détermine l'adresse à afficher selon le type de lieu sélectionné
+     */
+    private String getAddressForLocation(String locationType, String autreAdresse, String structureAdresse,
+            Patient patient) {
+        if (locationType == null || locationType.isEmpty()) {
+            return "";
+        }
+
+        switch (locationType) {
+            case "domicile":
+                return patient.getAdresse() != null ? patient.getAdresse() : "Domicile du patient";
+            case "autre":
+                return autreAdresse != null && !autreAdresse.isEmpty() ? autreAdresse : "Autre lieu";
+            case "structure":
+                return structureAdresse != null && !structureAdresse.isEmpty() ? structureAdresse
+                        : "Structure de santé";
+            default:
+                return locationType;
+        }
+    }
+
+    /**
      * Classe helper pour les données du formulaire de prescription
      */
     public static class PrescriptionFormData {
         private String[] situation1;
         private String date_at_mp;
         private String mode_transport;
+        private String vehiculeType;
         private String trajet_depart;
         private String trajet_depart_autre;
         private String trajet_depart_structure;
@@ -183,12 +214,14 @@ public class PrescriptionPDFService {
         }
 
         public PrescriptionFormData(String[] situation1, String date_at_mp, String mode_transport,
-                String trajet_depart, String trajet_depart_autre, String trajet_depart_structure,
-                String trajet_arrivee, String trajet_arrivee_autre, String trajet_arrivee_structure,
-                Integer nombre_transports, String[] exoneration, String[] pension_militaire) {
+                String vehiculeType, String trajet_depart, String trajet_depart_autre,
+                String trajet_depart_structure, String trajet_arrivee, String trajet_arrivee_autre,
+                String trajet_arrivee_structure, Integer nombre_transports, String[] exoneration,
+                String[] pension_militaire) {
             this.situation1 = situation1;
             this.date_at_mp = date_at_mp;
             this.mode_transport = mode_transport;
+            this.vehiculeType = vehiculeType;
             this.trajet_depart = trajet_depart;
             this.trajet_depart_autre = trajet_depart_autre;
             this.trajet_depart_structure = trajet_depart_structure;
@@ -223,6 +256,14 @@ public class PrescriptionPDFService {
 
         public void setMode_transport(String mode_transport) {
             this.mode_transport = mode_transport;
+        }
+
+        public String getVehiculeType() {
+            return vehiculeType;
+        }
+
+        public void setVehiculeType(String vehiculeType) {
+            this.vehiculeType = vehiculeType;
         }
 
         public String getTrajet_depart() {

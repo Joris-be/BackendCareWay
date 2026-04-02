@@ -15,6 +15,9 @@ public class PrescriptionFormDTO {
     @JsonProperty("mode_transport")
     private String mode_transport;
 
+    @JsonProperty("vehiculeType")
+    private String vehiculeType;
+
     @JsonProperty("trajet_depart")
     private String trajet_depart;
 
@@ -47,7 +50,7 @@ public class PrescriptionFormDTO {
     }
 
     public PrescriptionFormDTO(Integer patientId, Integer medecinId, String[] situation1, String date_at_mp,
-            String mode_transport, String trajet_depart, String trajet_depart_autre,
+            String mode_transport, String vehiculeType, String trajet_depart, String trajet_depart_autre,
             String trajet_depart_structure, String trajet_arrivee, String trajet_arrivee_autre,
             String trajet_arrivee_structure, Integer nombre_transports, String[] exoneration,
             String[] pension_militaire) {
@@ -56,6 +59,7 @@ public class PrescriptionFormDTO {
         this.situation1 = situation1;
         this.date_at_mp = date_at_mp;
         this.mode_transport = mode_transport;
+        this.vehiculeType = vehiculeType;
         this.trajet_depart = trajet_depart;
         this.trajet_depart_autre = trajet_depart_autre;
         this.trajet_depart_structure = trajet_depart_structure;
@@ -106,6 +110,14 @@ public class PrescriptionFormDTO {
 
     public void setMode_transport(String mode_transport) {
         this.mode_transport = mode_transport;
+    }
+
+    public String getVehiculeType() {
+        return vehiculeType;
+    }
+
+    public void setVehiculeType(String vehiculeType) {
+        this.vehiculeType = vehiculeType;
     }
 
     public String getTrajet_depart() {
