@@ -30,11 +30,6 @@ public class PrescriptionController {
         return prescriptionService.getAllPrescriptions();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Prescription> getPrescriptionById(@PathVariable Integer id) {
-        return ResponseEntity.ok(prescriptionService.getPrescriptionById(id));
-    }
-
     @GetMapping("/medecin/{medecinId}")
     public List<Prescription> getPrescriptionsByMedecinId(@PathVariable Integer medecinId) {
         return prescriptionService.getPrescriptionsByMedecinId(medecinId);
@@ -43,6 +38,11 @@ public class PrescriptionController {
     @GetMapping("/patient/{patientId}")
     public List<Prescription> getPrescriptionsByPatientId(@PathVariable Integer patientId) {
         return prescriptionService.getPrescriptionsByPatientId(patientId);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Prescription> getPrescriptionById(@PathVariable Integer id) {
+        return ResponseEntity.ok(prescriptionService.getPrescriptionById(id));
     }
 
     @PostMapping
