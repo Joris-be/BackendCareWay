@@ -11,8 +11,8 @@ INSERT INTO Patient(idpatient, prenom, nom, datenaiss, nss, motdepasse, adresse,
 (1,'Jean','Dupont','1985-03-15','185037512345678','PatPass123','12 rue de la Paix, Paris','Arythmie cardiaque','0612345678','jean.dupont@gmail.com','M','France'),
 (2,'Sophie','Martin','1990-07-22','290077523456789','PatPass123','5 avenue des Fleurs, Lyon','Entorse', '0623456789','sophie.martin@gmail.com','F','France'),
 (3,'Pierre','Bernard','1978-11-30','178117534567890','PatPass123','8 boulevard Victor Hugo, Marseille','Migraines','0634567890','pierre.bernard@gmail.com','M','France'),
-(4,'Marie','Leclerc','1995-02-14','295027545678901','PatPass123','3 rue du Moulin, Bordeaux','Diab√®te type 2','0645678901','marie.leclerc@gmail.com','F','France'),
-(5,'Thomas','Moreau','1965-09-08','165097556789012','PatPass123','27 rue des Lilas, Toulouse','Insuffisance r√©nale','0656789012','thomas.moreau@gmail.com','M','France');
+(4,'Marie','Leclerc','1995-02-14','295027545678901','PatPass123','3 rue du Moulin, Bordeaux','Diab+øte type 2','0645678901','marie.leclerc@gmail.com','F','France'),
+(5,'Thomas','Moreau','1965-09-08','165097556789012','PatPass123','27 rue des Lilas, Toulouse','Insuffisance r+Ænale','0656789012','thomas.moreau@gmail.com','M','France');
 
 -- Ajouter les images pour les patients
 UPDATE Patient SET image = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop' WHERE idpatient = 1;
@@ -23,7 +23,7 @@ INSERT INTO Transport(idtransport, datetransport, lieudepart, lieuarrive, typetr
 (6,'2026-03-15 09:30:00','12 rue de la Paix, Paris','Clinique du Parc, Paris','VSL', 1, 'TERMINE'),
 (7,'2026-03-25 10:45:00','12 rue de la Paix, Paris','Hopital Saint-Antoine, Paris','Ambulance', 1, 'TERMINE'),
 (11,'2026-03-30 14:15:00','12 rue de la Paix, Paris','Hopital Ambroise Pare, Paris','Ambulance', 1, 'TERMINE'),
-(8,'2026-04-05 08:30:00','12 rue de la Paix, Paris','Centre de R√©√©ducation, Paris','VSL', 1, 'PLANIFIE'),
+(8,'2026-04-05 08:30:00','12 rue de la Paix, Paris','Centre de R+Æ+Æducation, Paris','VSL', 1, 'PLANIFIE'),
 (9,'2026-04-20 15:00:00','12 rue de la Paix, Paris','Hopital Bichat, Paris','Ambulance', 1, 'PLANIFIE'),
 (10,'2026-05-10 09:45:00','12 rue de la Paix, Paris','Clinique cardio, Paris','VSL', 1, 'PLANIFIE'),
 (12,'2026-05-28 16:30:00','12 rue de la Paix, Paris','Hopital Tenon, Paris','VSL', 1, 'PLANIFIE'),
@@ -50,7 +50,7 @@ INSERT INTO Transporteur(idtransporteur, nom, prenom, tel, mail, idtransport) VA
 (5,'Roux','Alexandre','0655555555','alexandre.roux@gmail.com',9),
 (6,'Michel','Jean','0666666666','jean.michel@gmail.com',10),
 (7,'Carpentier','Marc','0677777777','marc.carpentier@gmail.com',11),
-(8,'Dupuis','Fran√ßois','0688888888','francois.dupuis@gmail.com',12),
+(8,'Dupuis','Fran+∫ois','0688888888','francois.dupuis@gmail.com',12),
 (9,'Sanchez','Pablo','0699999999','pablo.sanchez@gmail.com',13);
 
 -- 6. Evaluation (FK: idpatient, idtransport)
@@ -109,19 +109,11 @@ INSERT INTO patient_favori(idpatient, idtransporteur, type_transport) VALUES
 (3, 1, 'AMBULANCE'),
 (3, 2, 'VSL'),
 (3, 3, 'TAXI'),
--- Patient 4 : Marie Leclerc
-(4, 1, 'AMBULANCE'),
-(4, 2, 'VSL'),
-(4, 3, 'TAXI'),
--- Patient 5 : Thomas Moreau
-(5, 1, 'AMBULANCE'),
-(5, 2, 'VSL'),
-(5, 3, 'TAXI');
 
--- 11. Transactions
+-- 11. Transactions pour les patients
 INSERT INTO transactions(patient_id, description, amount, status, date) VALUES
-(1, 'Transport 10/01', 120.50, 'COMPLETED', '2026-01-15'),
-(1, 'Transport 15/01', 85.00, 'PENDING', '2026-01-20'),
-(1, 'Transport 20/01', 200.00, 'COMPLETED', '2026-01-25'),
-(1, 'Transport 05/04', 165.00, 'PENDING', '2026-04-10'),
-(1, 'Transport 15/05', 175.00, 'PENDING', '2026-05-20');
+(1, 'Remboursement transport 10/01/2026', 120.50, 'COMPLETED', '2026-01-15'),
+(1, 'Remboursement transport 15/01/2026', 85.00, 'PENDING', '2026-01-20'),
+(1, 'Remboursement transport 20/01/2026', 200.00, 'COMPLETED', '2026-01-25'),
+(1, 'Remboursement transport 05/04/2026', 165.00, 'PENDING', '2026-04-10'),
+(1, 'Remboursement transport 15/05/2026', 175.00, 'PENDING', '2026-05-20');
