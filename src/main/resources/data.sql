@@ -132,3 +132,16 @@ INSERT INTO notifications(patient_id, title, message, type, date, read_status) V
 (1, 'Transport programme', 'Votre transport a ete programme pour le 10/01/2026 a 08:00', 'TRANSPORT', '2026-01-09', 'false'),
 (1, 'Document disponible', 'Votre prescription PDF est prete a etre telechargee', 'DOCUMENT', '2026-01-09', 'true'),
 (1, 'Rappel de rendez-vous', 'Rendez-vous demain a l''Hopital Lariboisiere a 08:00', 'REMINDER', '2026-01-09', 'false');
+
+-- 13. QR Codes pour les etapes des transports
+INSERT INTO qr_codes(code, scanned, generated_at, expires_at, scanned_at, etape_id) VALUES
+-- Transport 11: 3 etapes avec QR codes
+('550e8400-e29b-41d4-a716-446655440001', true, '2026-03-30 14:15:00', '2026-03-30 16:15:00', '2026-03-30 14:30:00', 6),
+('550e8400-e29b-41d4-a716-446655440002', true, '2026-03-30 15:00:00', '2026-03-30 17:00:00', '2026-03-30 15:15:00', 7),
+('550e8400-e29b-41d4-a716-446655440003', true, '2026-03-30 15:45:00', '2026-03-30 17:45:00', '2026-03-30 16:00:00', 8),
+
+-- Transport 12: Etape DEPART avec QR code non scanné (actif)
+('550e8400-e29b-41d4-a716-446655440010', false, '2026-05-27 16:00:00', '2026-05-28 02:00:00', null, 9),
+
+-- Transport 13: Etape DEPART avec QR code expiré
+('550e8400-e29b-41d4-a716-446655440020', false, '2026-06-14 12:00:00', '2026-06-14 14:00:00', null, 10);
