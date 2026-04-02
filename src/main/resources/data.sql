@@ -118,7 +118,15 @@ INSERT INTO patient_favori(idpatient, idtransporteur, type_transport) VALUES
 (5, 2, 'VSL'),
 (5, 3, 'TAXI');
 
--- 11. Notifications pour Jean Dupont (Patient ID 1)
+-- 11. Transactions pour les patients
+INSERT INTO transactions(patient_id, description, amount, status, date) VALUES
+(1, 'Remboursement transport 10/01/2026', 120.50, 'Remboursé', '2026-01-15'),
+(1, 'Remboursement transport 15/01/2026', 85.00, 'En cours', '2026-01-20'),
+(1, 'Remboursement transport 20/01/2026', 200.00, 'Remboursé', '2026-01-25'),
+(1, 'Remboursement transport 05/04/2026', 165.00, 'En cours', '2026-04-10'),
+(1, 'Remboursement transport 15/05/2026', 175.00, 'En cours', '2026-05-20');
+
+-- 12. Notifications pour Jean Dupont (Patient ID 1)
 INSERT INTO notifications(patient_id, title, message, type, date, read_status) VALUES
 (1,'Nouvelle prescription','Dr. Lamar Kendrick vous a créé une prescription : Consultation cardiologie','PRESCRIPTION','2026-01-09','false'),
 (1,'Transport programmé','Votre transport a été programmé pour le 10/01/2026 à 08:00','TRANSPORT','2026-01-09','false'),

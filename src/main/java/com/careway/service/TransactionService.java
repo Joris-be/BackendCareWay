@@ -39,4 +39,8 @@ public class TransactionService {
     public void deleteTransaction(Integer id) {
         transactionRepository.deleteById(id);
     }
+
+    public List<Transaction> getTransactionsByPatientId(Integer patientId) {
+        return transactionRepository.findByPatientId(patientId);
+    }
 }

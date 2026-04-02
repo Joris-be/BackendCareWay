@@ -48,4 +48,9 @@ public class TransactionController {
         transactionService.deleteTransaction(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/patient/{patientId}")
+    public List<Transaction> getTransactionsByPatient(@PathVariable Integer patientId) {
+        return transactionService.getTransactionsByPatientId(patientId);
+    }
 }
