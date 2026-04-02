@@ -125,3 +125,10 @@ INSERT INTO transactions(patient_id, description, amount, status, date) VALUES
 (1, 'Transport 20/01', 200.00, 'COMPLETED', '2026-01-25'),
 (1, 'Transport 05/04', 165.00, 'PENDING', '2026-04-10'),
 (1, 'Transport 15/05', 175.00, 'PENDING', '2026-05-20');
+
+-- 12. Notifications pour Jean Dupont (Patient ID 1)
+INSERT INTO notifications(patient_id, title, message, type, date, read_status) VALUES
+(1, 'Nouvelle prescription', 'Dr. Lamar Kendrick vous a cree une prescription : Consultation cardiologie', 'PRESCRIPTION', '2026-01-09', 'false'),
+(1, 'Transport programme', 'Votre transport a ete programme pour le 10/01/2026 a 08:00', 'TRANSPORT', '2026-01-09', 'false'),
+(1, 'Document disponible', 'Votre prescription PDF est prete a etre telechargee', 'DOCUMENT', '2026-01-09', 'true'),
+(1, 'Rappel de rendez-vous', 'Rendez-vous demain a l''Hopital Lariboisiere a 08:00', 'REMINDER', '2026-01-09', 'false');
