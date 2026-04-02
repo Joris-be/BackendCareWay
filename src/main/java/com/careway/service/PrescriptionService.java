@@ -134,6 +134,59 @@ public class PrescriptionService {
     }
 
     /**
+     * Génère un PDF pour une prescription si elle n'en a pas
+     * 
+     * @param prescriptionId ID de la prescription
+     * @return Les données PDF générées
+     */
+    public byte[] generatePDFIfNeeded(Integer prescriptionId) throws Exception {
+        Prescription prescription = getPrescriptionById(prescriptionId);
+
+        // Si le PDF existe déjà, le retourner
+        if (prescription.getPdfData() != null && prescription.getPdfData().length > 0) {
+            return prescription.getPdfData();
+        }
+
+        // Récupérer les données du patient et du médecin
+        Patient patient = patientRepository.findById(prescription.getIdpatient())
+                .orElseThrow(() -> new RuntimeException("Patient non trouvé"));
+
+        Medecin medecin = null;
+        if (prescription.getMedecin() != null) {
+            try {
+                medecin = medecinRepository.findById(Integer.parseInt(prescription.getMedecin()))
+                        .orElse(null);
+            } catch (NumberFormatException e) {
+                // Le stockage du médecin peut être différent
+            }
+        }
+
+        // Créer des données de formulaire basiques
+        PrescriptionFormData pdfFormData = new PrescriptionFormData(
+                new String[] { prescription.getMotifmedical() },
+                prescription.getDateprescription().toString(),
+                prescription.getTypetransport(),
+                "domicile",
+                "",
+                "",
+                "domicile",
+                "",
+                "",
+                1,
+                new String[] {},
+                new String[] {});
+
+        // Générer le PDF
+        byte[] pdfBytes = pdfService.generatePrescriptionPDF(patient, medecin, pdfFormData);
+
+        // Stocker le PDF généré
+        prescription.setPdfData(pdfBytes);
+        prescriptionRepository.save(prescription);
+
+        return pdfBytes;
+    }
+
+    /**
      * Crée une notification pour le patient quand une prescription est créée
      */
     private void createPrescriptionNotification(Patient patient, Medecin medecin, String typeTransport) {

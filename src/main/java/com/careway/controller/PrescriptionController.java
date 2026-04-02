@@ -68,22 +68,23 @@ public class PrescriptionController {
 
     /**
      * Télécharge le PDF d'une prescription
+     * Génère le PDF à la volée si celui-ci n'existe pas
      * 
      * @param id ID de la prescription
      * @return Le PDF en tant que fichier binaire
      */
     @GetMapping("/{id}/pdf")
     public ResponseEntity<byte[]> downloadPrescriptionPDF(@PathVariable Integer id) {
-        Prescription prescription = prescriptionService.getPrescriptionById(id);
+        try {
+            byte[] pdfBytes = prescriptionService.generatePDFIfNeeded(id);
 
-        if (prescription.getPdfData() == null || prescription.getPdfData().length == 0) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"prescription_" + id + ".pdf\"")
+                    .body(pdfBytes);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).build();
         }
-
-        return ResponseEntity.ok()
-                .contentType(MediaType.APPLICATION_PDF)
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"prescription_" + id + ".pdf\"")
-                .body(prescription.getPdfData());
     }
 
     @PutMapping("/{id}")
