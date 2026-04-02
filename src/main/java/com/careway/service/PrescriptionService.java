@@ -45,6 +45,12 @@ public class PrescriptionService {
                 .collect(Collectors.toList());
     }
 
+    public List<Prescription> getPrescriptionsByPatientId(Integer patientId) {
+        return prescriptionRepository.findAll().stream()
+                .filter(p -> p.getIdpatient() != null && p.getIdpatient().equals(patientId))
+                .collect(Collectors.toList());
+    }
+
     public Prescription getPrescriptionById(Integer id) {
         return prescriptionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Prescription non trouvée"));
@@ -107,10 +113,10 @@ public class PrescriptionService {
         prescription.setIdprescription(maxId + 1);
 
         Prescription savedPrescription = prescriptionRepository.save(prescription);
-        
+
         // Créer une notification pour le patient
         createPrescriptionNotification(patient, medecin, formData.getMode_transport());
-        
+
         return savedPrescription;
     }
 
@@ -135,11 +141,12 @@ public class PrescriptionService {
             Notification notification = new Notification();
             notification.setPatientId(patient.getIdpatient());
             notification.setTitle("Nouvelle prescription");
-            notification.setMessage("Dr. " + medecin.getPrenom() + " " + medecin.getNom() + " vous a créé une prescription : "+ typeTransport);
+            notification.setMessage("Dr. " + medecin.getPrenom() + " " + medecin.getNom()
+                    + " vous a créé une prescription : " + typeTransport);
             notification.setType("PRESCRIPTION");
             notification.setDate(LocalDateTime.now().toString());
             notification.setRead(false);
-            
+
             notificationService.saveNotification(notification);
         } catch (Exception e) {
             System.err.println("Erreur lors de la création de la notification : " + e.getMessage());
