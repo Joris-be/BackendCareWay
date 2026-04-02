@@ -118,22 +118,14 @@ INSERT INTO patient_favori(idpatient, idtransporteur, type_transport) VALUES
 (5, 2, 'VSL'),
 (5, 3, 'TAXI');
 
--- 11. Transactions
-INSERT INTO transactions(patient_id, description, amount, status, date) VALUES
-(1, 'Transport 10/01', 120.50, 'COMPLETED', '2026-01-15'),
-(1, 'Transport 15/01', 85.00, 'PENDING', '2026-01-20'),
-(1, 'Transport 20/01', 200.00, 'COMPLETED', '2026-01-25'),
-(1, 'Transport 05/04', 165.00, 'PENDING', '2026-04-10'),
-(1, 'Transport 15/05', 175.00, 'PENDING', '2026-05-20');
-
--- 12. Notifications pour Jean Dupont (Patient ID 1)
+-- 11. Notifications pour Jean Dupont (Patient ID 1)
 INSERT INTO notifications(patient_id, title, message, type, date, read_status) VALUES
 (1, 'Nouvelle prescription', 'Dr. Lamar Kendrick vous a cree une prescription : Consultation cardiologie', 'PRESCRIPTION', '2026-01-09', 'false'),
 (1, 'Transport programme', 'Votre transport a ete programme pour le 10/01/2026 a 08:00', 'TRANSPORT', '2026-01-09', 'false'),
 (1, 'Document disponible', 'Votre prescription PDF est prete a etre telechargee', 'DOCUMENT', '2026-01-09', 'true'),
 (1, 'Rappel de rendez-vous', 'Rendez-vous demain a l''Hopital Lariboisiere a 08:00', 'REMINDER', '2026-01-09', 'false');
 
--- 13. QR Codes pour les etapes des transports
+-- 12. QR Codes pour les etapes des transports
 INSERT INTO qr_codes(code, scanned, generated_at, expires_at, scanned_at, etape_id) VALUES
 -- Transport 11: 3 etapes avec QR codes
 ('550e8400-e29b-41d4-a716-446655440001', true, '2026-03-30 14:15:00', '2026-03-30 16:15:00', '2026-03-30 14:30:00', 6),
