@@ -3,6 +3,7 @@ package com.careway.entity;
 import java.util.Date;
 
 import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -43,6 +44,12 @@ public class Remboursement {
     @Basic(optional = false)
     @NonNull
     private Date dateremboursement;
+
+    @Column(name = "patient_id")
+    private Integer patientId;
+
+    @Column(name = "description")
+    private String description;
 
     @JsonIgnore
     @OneToOne

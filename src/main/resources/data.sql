@@ -84,16 +84,16 @@ INSERT INTO Note(idnote, nombreetoiles, idtransporteur, idpatient) VALUES
 (4,3.5,4,4),
 (5,3.0,5,5);
 
--- 9. Remboursement (FK: idtransport)
-INSERT INTO Remboursement(idremboursement, montant, tauxprisencharge, statutremboursement, dateremboursement, idtransport) VALUES
-(1,120.50,0.80,'Rembourse','2026-01-15',1),
-(2,85.00,0.65,'Rembourse','2026-01-20',2),
-(3,200.00,0.90,'Rembourse','2026-01-25',3),
-(4,150.75,0.75,'En attente','2026-02-05',4),
-(5,310.00,0.95,'Rembourse','2026-02-10',5),
-(6,165.00,0.85,'Rembourse','2026-04-05',11),
-(7,95.00,0.70,'En attente','2026-06-15',12),
-(8,175.00,0.80,'En attente','2026-06-20',13);
+-- 9. Remboursement (FK: idtransport);
+INSERT INTO Remboursement(idremboursement, montant, tauxprisencharge, statutremboursement, dateremboursement, idtransport, patient_id, description) VALUES
+(1,120.50,0.80,'Rembourse','2026-01-15',1,1,'Transport 10/01'),
+(2,85.00,0.65,'Rembourse','2026-01-20',2,2,'Transport 15/01'),
+(3,200.00,0.90,'Rembourse','2026-01-25',3,3,'Transport 20/01'),
+(4,150.75,0.75,'En attente','2026-02-05',4,4,'Transport 05/04'),
+(5,310.00,0.95,'Rembourse','2026-02-10',5,5,'Transport 10/02'),
+(6,165.00,0.85,'Rembourse','2026-04-05',11,1,'Transport 30/03'),
+(7,95.00,0.70,'En attente','2026-06-15',12,1,'Transport 28/05'),
+(8,175.00,0.80,'En attente','2026-06-20',13,1,'Transport 15/06');
 
 -- 10. PatientFavoris (FK: idpatient, idtransporteur)
 INSERT INTO patient_favori(idpatient, idtransporteur, type_transport) VALUES
