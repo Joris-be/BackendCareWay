@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.careway.dto.EtapeDTO;
 import com.careway.entity.QRCode;
 import com.careway.service.QRCodeService;
 
@@ -39,6 +40,12 @@ public class QRCodeController {
     public ResponseEntity<List<QRCode>> getQRCodesByEtape(@PathVariable Integer etapeId) {
         List<QRCode> qrCodes = qrCodeService.getQRCodesByEtape(etapeId);
         return ResponseEntity.ok(qrCodes);
+    }
+
+    @GetMapping("/etapes")
+    public ResponseEntity<List<EtapeDTO>> getAllEtapesWithQRCodes() {
+        List<EtapeDTO> etapes = qrCodeService.getAllEtapesWithQRCodes();
+        return ResponseEntity.ok(etapes);
     }
 
     @GetMapping("/{id}")

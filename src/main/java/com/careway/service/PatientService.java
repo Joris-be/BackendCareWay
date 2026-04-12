@@ -151,4 +151,36 @@ public class PatientService {
         patient.setMotdepasse(newPassword);
         patientRepository.save(patient);
     }
+
+    // Mettre à jour un patient existant
+    public PatientDTO updatePatient(Integer id, PatientDTO dto) {
+        Patient patient = patientRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Patient non trouvé avec l'id : " + id));
+
+        // Mettre à jour les champs
+        if (dto.getPrenom() != null)
+            patient.setPrenom(dto.getPrenom());
+        if (dto.getNom() != null)
+            patient.setNom(dto.getNom());
+        if (dto.getDatenaiss() != null)
+            patient.setDatenaiss(dto.getDatenaiss());
+        if (dto.getNss() != null)
+            patient.setNss(dto.getNss());
+        if (dto.getAdresse() != null)
+            patient.setAdresse(dto.getAdresse());
+        if (dto.getMaladie() != null)
+            patient.setMaladie(dto.getMaladie());
+        if (dto.getTel() != null)
+            patient.setTel(dto.getTel());
+        if (dto.getMail() != null)
+            patient.setMail(dto.getMail());
+        if (dto.getGenre() != null)
+            patient.setGenre(dto.getGenre());
+        if (dto.getPays() != null)
+            patient.setPays(dto.getPays());
+        if (dto.getImage() != null)
+            patient.setImage(dto.getImage());
+
+        return toDTO(patientRepository.save(patient));
+    }
 }

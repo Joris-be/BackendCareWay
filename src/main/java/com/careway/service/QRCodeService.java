@@ -1,17 +1,23 @@
 package com.careway.service;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.careway.dao.QRCodeRepository;
 import com.careway.dao.EtapeRepository;
+import com.careway.dao.TransportRepository;
+import com.careway.dto.EtapeDTO;
 import com.careway.entity.QRCode;
 import com.careway.entity.Etape;
+import com.careway.entity.Transport;
 
 @Service
 public class QRCodeService {
@@ -20,6 +26,9 @@ public class QRCodeService {
 
     @Autowired
     private EtapeRepository etapeRepository;
+
+    @Autowired
+    private TransportRepository transportRepository;
 
     public QRCode generateQRCode(Integer etapeId, Integer expirationMinutes) {
         Optional<Etape> etape = etapeRepository.findById(etapeId);
@@ -89,5 +98,35 @@ public class QRCodeService {
     public boolean isExpired(Integer qrCodeId) {
         QRCode qrCode = getQRCodeById(qrCodeId);
         return qrCode.isExpired();
+    }
+
+    public List<EtapeDTO> getAllEtapesWithQRCodes() {
+        // Récupérer tous les transports
+        List<Transport> allTransports = transportRepository.findAll();
+
+        if (allTransports.isEmpty()) {
+            return List.of();
+        }
+
+        // Trouver le transport avec la date la plus ancienne
+        Transport oldestTransport = allTransports.stream()
+                .min(Comparator.comparing(Transport::getDatetransport))
+                .orElse(null);
+
+        if (oldestTransport == null) {
+            return List.of();
+        }
+
+        // Récupérer les 4 étapes du transport le plus ancien
+        return oldestTransport.getEtapes().stream()
+                .sorted(Comparator.comparingInt(Etape::getIdetape))
+                .map(etape -> {
+                    EtapeDTO dto = new EtapeDTO();
+                    dto.setIdetape(etape.getIdetape());
+                    dto.setStatut(etape.getStatut().toString());
+                    dto.setIdtransport(etape.getTransport().getIdtransport());
+                    return dto;
+                })
+                .collect(Collectors.toList());
     }
 }
