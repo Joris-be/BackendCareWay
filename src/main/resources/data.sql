@@ -1,6 +1,6 @@
 -- 1. Medecin (pas de FK)
 INSERT INTO Medecin(idmedecin, nom, prenom, specialite, rpps, motdepasse, mail) VALUES
-(1,'Lamar','Kendrick','Medecin generaliste','10123456789','MedPass123','kendrick.lamar@gmail.com'),
+(1,'Rousseau','Martin','Medecin generaliste','10123456789','MedPass123','kendrick.lamar@gmail.com'),
 (2,'Dupont','Marie','Cardiologue','10234567890','MedPass123','marie.dupont@gmail.com');
 
 -- 2. Patient (pas de FK)
