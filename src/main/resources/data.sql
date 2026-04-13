@@ -1,6 +1,6 @@
 -- 1. Medecin (pas de FK)
 INSERT INTO Medecin(idmedecin, nom, prenom, specialite, rpps, motdepasse, mail) VALUES
-(1,'Rousseau','Martin','Medecin generaliste','10123456789','MedPass123','kendrick.lamar@gmail.com'),
+(1,'Rousseau','Martin','Medecin generaliste','10123456789','MedPass123','martin.rousseau@gmail.com'),
 (2,'Dupont','Marie','Cardiologue','10234567890','MedPass123','marie.dupont@gmail.com');
 
 -- 2. Patient (pas de FK)
@@ -141,7 +141,17 @@ INSERT INTO Prescription(idprescription, motifmedical, typetransport, dateprescr
 (57,'Neurologie dysarthrie rehab','Ambulance','2026-03-26','2026-03-25',1,53),
 (58,'Neuropsychologie douleur neuro','Ambulance','2026-03-31','2026-03-30',1,54),
 (59,'Dermatologie rosacee traitement','VSL','2026-04-06','2026-04-05',1,55),
-(60,'Dermatologie ichtyose hydration','Ambulance','2026-04-12','2026-04-11',1,56);
+(60,'Dermatologie ichtyose hydration','Ambulance','2026-04-12','2026-04-11',1,56),
+(61,'Bilan cardiaque complet','Ambulance','2026-04-15','2026-04-14',1,1),
+(62,'Consultation supplementaire arythmie','VSL','2026-04-18','2026-04-17',1,1),
+(63,'Echocardiogramme suivi','Ambulance','2026-04-22','2026-04-21',1,1),
+(64,'Holter ECG 24h','VSL','2026-04-25','2026-04-24',1,1),
+(65,'Epreuve d effort cardiaque','Ambulance','2026-05-01','2026-04-30',1,1),
+(66,'Consultation de revalidation','VSL','2026-05-05','2026-05-04',1,1),
+(67,'Radiographie thoracique suivi','Taxi','2026-05-08','2026-05-07',1,1),
+(68,'Bilan biologique complet','Ambulance','2026-05-12','2026-05-11',1,1),
+(69,'Consultation urgence cardiaque','Ambulance','2026-05-15','2026-05-14',1,1),
+(70,'Evaluation urgence insuffisance cardiaque','VSL','2026-05-18','2026-05-17',1,1);
 
 -- 5. Transporteur (FK: idtransport)
 INSERT INTO Transporteur(idtransporteur, nom, prenom, tel, mail, idtransport) VALUES
