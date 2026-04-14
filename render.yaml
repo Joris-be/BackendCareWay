@@ -1,0 +1,44 @@
+services:
+  - type: web
+    name: careway-backend
+    plan: free
+    runtime: java
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -jar target/backend-0.0.1-SNAPSHOT.jar --spring.profiles.active=render
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        scope: build,runtime
+        value: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
+      - key: SPRING_DATASOURCE_USERNAME
+        scope: build,runtime
+        fromDatabase:
+          name: careway-db
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        scope: build,runtime
+        fromDatabase:
+          name: careway-db
+          property: password
+      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        value: update
+      - key: SPRING_SQL_INIT_MODE
+        value: ALWAYS
+      - key: SPRING_MAIL_HOST
+        value: smtp.gmail.com
+      - key: SPRING_MAIL_PORT
+        value: "587"
+      - key: SPRING_MAIL_USERNAME
+        value: askrichayma7@gmail.com
+      - key: SPRING_MAIL_PASSWORD
+        fromEnvironment: GMAIL_PASSWORD
+      - key: SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH
+        value: "true"
+      - key: SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE
+        value: "true"
+
+databases:
+  - name: careway-db
+    databaseName: careway
+    plan: free
+    region: frankfurt
+    postgresSQLVersion: "14"
