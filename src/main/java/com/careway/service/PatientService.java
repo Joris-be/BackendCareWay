@@ -119,6 +119,16 @@ public class PatientService {
         return patient.getMotdepasse() != null && patient.getMotdepasse().equals(password);
     }
 
+    // Mettre à jour le mot de passe du patient (pour reset password)
+    public void updatePatientPassword(Integer patientId, String newPassword) {
+        Patient patient = patientRepository.findById(patientId)
+                .orElse(null);
+        if (patient != null) {
+            patient.setMotdepasse(newPassword);
+            patientRepository.save(patient);
+        }
+    }
+
     // Récupérer les patients d'un médecin (via ses prescriptions)
     public List<PatientDTO> getPatientsByMedecinId(Integer medecinId) {
         Set<Integer> patientIds = prescriptionRepository.findAll().stream()

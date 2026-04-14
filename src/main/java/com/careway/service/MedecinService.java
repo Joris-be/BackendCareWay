@@ -45,6 +45,15 @@ public class MedecinService {
         return medecin.getMotdepasse() != null && medecin.getMotdepasse().equals(password);
     }
 
+    public void updateMedecinPassword(Integer medecinId, String newPassword) {
+        Optional<Medecin> medecinOpt = getMedecinById(medecinId);
+        if (medecinOpt.isPresent()) {
+            Medecin medecin = medecinOpt.get();
+            medecin.setMotdepasse(newPassword);
+            medecinRepository.save(medecin);
+        }
+    }
+
     public Medecin saveMedecin(Medecin medecin) {
         return medecinRepository.save(medecin);
     }
