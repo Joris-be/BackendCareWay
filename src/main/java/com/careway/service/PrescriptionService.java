@@ -93,6 +93,9 @@ public class PrescriptionService {
                 formData.getExoneration(),
                 formData.getPension_militaire());
 
+        // Ajouter la date du transport programmé
+        pdfFormData.setDate_transport(formData.getDate_transport());
+
         // Générer le PDF
         byte[] pdfBytes = pdfService.generatePrescriptionPDF(patient, medecin, pdfFormData);
 
