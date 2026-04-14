@@ -44,6 +44,8 @@ public class Transporteur {
     @NonNull
     private String mail;
 
+    private String image;
+
     @OneToMany(mappedBy = "transporteur")
     private List<Note> notes;
 
