@@ -15,6 +15,8 @@ import com.careway.entity.Medecin;
 import com.careway.entity.Patient;
 import com.careway.service.MedecinService;
 import com.careway.service.PatientService;
+import com.careway.service.EmailService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
 @RequestMapping("/auth")
@@ -22,6 +24,9 @@ public class AuthController {
 
     private final MedecinService medecinService;
     private final PatientService patientService;
+
+    @Autowired
+    private EmailService emailService;
 
     // In-memory token store: token -> {userType, userId, expiryTime}
     private static final ConcurrentHashMap<String, ResetTokenData> resetTokens = new ConcurrentHashMap<>();
@@ -115,6 +120,8 @@ public class AuthController {
         try {
             Integer userId = null;
             String userType = request.getUserType();
+            String userName = null;
+            String userEmail = null;
 
             if ("medecin".equalsIgnoreCase(userType)) {
                 Medecin medecin = medecinService.getMedecinByRPPS(request.getCode()).orElse(null);
@@ -122,12 +129,16 @@ public class AuthController {
                     return ResponseEntity.ok(new ResetResponse(false, "Medecin not found or email mismatch"));
                 }
                 userId = medecin.getIdmedecin();
+                userName = medecin.getPrenom() + " " + medecin.getNom();
+                userEmail = medecin.getMail();
             } else if ("patient".equalsIgnoreCase(userType)) {
                 Patient patient = patientService.getPatientByNSS(request.getCode());
                 if (patient == null || !patient.getMail().equalsIgnoreCase(request.getEmail())) {
                     return ResponseEntity.ok(new ResetResponse(false, "Patient not found or email mismatch"));
                 }
                 userId = patient.getIdpatient();
+                userName = patient.getPrenom() + " " + patient.getNom();
+                userEmail = patient.getMail();
             } else {
                 return ResponseEntity.ok(new ResetResponse(false, "Invalid user type"));
             }
@@ -136,11 +147,12 @@ public class AuthController {
             String resetToken = UUID.randomUUID().toString();
             resetTokens.put(resetToken, new ResetTokenData(userType, userId));
 
-            // In production, send email with reset link containing the token
-            // For now, just return the token
+            // Send email with reset token
+            emailService.sendPasswordResetEmail(userEmail, resetToken, userName, userType);
             System.out.println("PASSWORD RESET TOKEN: " + resetToken + " // User: " + userType + " ID: " + userId);
 
-            return ResponseEntity.ok(new ResetResponse(true, "Reset token generated", resetToken));
+            return ResponseEntity
+                    .ok(new ResetResponse(true, "Un email de réinitialisation a été envoyé à " + userEmail));
 
         } catch (Exception e) {
             return ResponseEntity.ok(new ResetResponse(false, "Error: " + e.getMessage()));
