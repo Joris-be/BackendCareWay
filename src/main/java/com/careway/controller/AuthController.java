@@ -152,7 +152,7 @@ public class AuthController {
             System.out.println("PASSWORD RESET TOKEN: " + resetToken + " // User: " + userType + " ID: " + userId);
 
             return ResponseEntity
-                    .ok(new ResetResponse(true, "Un email de réinitialisation a été envoyé à " + userEmail));
+                    .ok(new ResetResponse(true, "Un email de réinitialisation a été envoyé à " + userEmail + ". Token: " + resetToken, resetToken));
 
         } catch (Exception e) {
             return ResponseEntity.ok(new ResetResponse(false, "Error: " + e.getMessage()));
