@@ -101,6 +101,11 @@ public class PrescriptionPDFService {
                 formData.getTrajet_arrivee_autre(), formData.getTrajet_arrivee_structure(), patient);
         addDataRow(prescTable, "Lieu d'Arrivée:", lieuArrivee);
 
+        // Date du transport programmé
+        if (formData.getDate_transport() != null && !formData.getDate_transport().isEmpty()) {
+            addDataRow(prescTable, "Date du Transport Programmé:", formData.getDate_transport());
+        }
+
         // Nombre de transports
         if (formData.getNombre_transports() != null) {
             addDataRow(prescTable, "Nombre de Transports:", formData.getNombre_transports().toString());
@@ -186,6 +191,9 @@ public class PrescriptionPDFService {
             case "structure":
                 return structureAdresse != null && !structureAdresse.isEmpty() ? structureAdresse
                         : "Structure de santé";
+            case "hospital":
+                return structureAdresse != null && !structureAdresse.isEmpty() ? structureAdresse
+                        : "Hôpital";
             default:
                 return locationType;
         }
@@ -206,6 +214,7 @@ public class PrescriptionPDFService {
         private String trajet_arrivee_autre;
         private String trajet_arrivee_structure;
         private Integer nombre_transports;
+        private String date_transport;
         private String[] exoneration;
         private String[] pension_militaire;
 
@@ -336,6 +345,14 @@ public class PrescriptionPDFService {
 
         public void setPension_militaire(String[] pension_militaire) {
             this.pension_militaire = pension_militaire;
+        }
+
+        public String getDate_transport() {
+            return date_transport;
+        }
+
+        public void setDate_transport(String date_transport) {
+            this.date_transport = date_transport;
         }
     }
 }
