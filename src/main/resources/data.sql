@@ -1,3 +1,14 @@
+-- Supprimer les données existantes (dans l'ordre inverse des FK)
+DELETE FROM Etape;
+DELETE FROM Evaluation;
+DELETE FROM Note;
+DELETE FROM Patient_Favori;
+DELETE FROM Transport;
+DELETE FROM Prescription;
+DELETE FROM Notifications;
+DELETE FROM Patient;
+DELETE FROM Medecin;
+
 -- 1. Medecin (pas de FK)
 INSERT INTO Medecin(idmedecin, nom, prenom, specialite, rpps, motdepasse, mail) VALUES
 (1,'Rousseau','Martin','Medecin generaliste','10123456789','MedPass123','martin.rousseau@gmail.com'),
