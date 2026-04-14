@@ -22,17 +22,20 @@ public class PrescriptionService {
     private final MedecinRepository medecinRepository;
     private final PrescriptionPDFService pdfService;
     private final NotificationService notificationService;
+    private final TransportService transportService;
 
     public PrescriptionService(PrescriptionRepository prescriptionRepository,
             PatientRepository patientRepository,
             MedecinRepository medecinRepository,
             PrescriptionPDFService pdfService,
-            NotificationService notificationService) {
+            NotificationService notificationService,
+            TransportService transportService) {
         this.prescriptionRepository = prescriptionRepository;
         this.patientRepository = patientRepository;
         this.medecinRepository = medecinRepository;
         this.pdfService = pdfService;
         this.notificationService = notificationService;
+        this.transportService = transportService;
     }
 
     public List<Prescription> getAllPrescriptions() {
@@ -117,6 +120,43 @@ public class PrescriptionService {
 
         // Créer une notification pour le patient
         createPrescriptionNotification(patient, medecin, formData.getMode_transport());
+
+        // Créer automatiquement un transport si une date est spécifiée
+        if (formData.getDate_transport() != null && !formData.getDate_transport().isEmpty()) {
+            try {
+                // Déterminer le lieu de départ
+                String lieuDepart = "Domicile du patient";
+                if ("autre".equals(formData.getTrajet_depart())) {
+                    lieuDepart = formData.getTrajet_depart_autre();
+                } else if ("structure".equals(formData.getTrajet_depart())) {
+                    lieuDepart = formData.getTrajet_depart_structure();
+                }
+
+                // Déterminer le lieu d'arrivée
+                String lieuArrivee = "Hôpital";
+                if ("autre".equals(formData.getTrajet_arrivee())) {
+                    lieuArrivee = formData.getTrajet_arrivee_autre();
+                } else if ("hospital".equals(formData.getTrajet_arrivee())) {
+                    lieuArrivee = formData.getTrajet_arrivee_structure();
+                }
+
+                // Convertir la date de string à Date
+                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+                Date dateTransport = sdf.parse(formData.getDate_transport());
+
+                // Créer le transport avec statut "EN_ATTENTE"
+                transportService.createTransportFromPrescription(
+                        formData.getPatientId(),
+                        dateTransport,
+                        lieuDepart,
+                        lieuArrivee,
+                        formData.getVehiculeType());
+            } catch (Exception e) {
+                // Si la création du transport échoue, ne pas bloquer la création de la
+                // prescription
+                System.err.println("Erreur lors de la création du transport : " + e.getMessage());
+            }
+        }
 
         return savedPrescription;
     }

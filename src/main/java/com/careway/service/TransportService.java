@@ -1,6 +1,7 @@
 package com.careway.service;
 
 import java.util.List;
+import java.util.Date;
 import org.springframework.stereotype.Service;
 import com.careway.dao.TransportRepository;
 import com.careway.dto.TransportDTO;
@@ -45,6 +46,29 @@ public class TransportService {
 
     public void deleteTransport(Integer id) {
         transportRepository.deleteById(id);
+    }
+
+    public Transport createTransportFromPrescription(Integer patientId, Date dateTransport,
+            String lieuDepart, String lieuArrivee,
+            String typeTransport) {
+        Transport transport = new Transport();
+
+        // Générer un ID unique
+        List<Transport> allTransports = transportRepository.findAll();
+        Integer maxId = allTransports.stream()
+                .map(Transport::getIdtransport)
+                .max(Integer::compare)
+                .orElse(0);
+        transport.setIdtransport(maxId + 1);
+
+        transport.setDatetransport(dateTransport);
+        transport.setLieudepart(lieuDepart);
+        transport.setLieuarrive(lieuArrivee);
+        transport.setTypetransport(typeTransport);
+        transport.setIdpatient(patientId);
+        transport.setStatut("EN_ATTENTE");
+
+        return transportRepository.save(transport);
     }
 
     private TransportDTO convertToDTO(Transport transport) {

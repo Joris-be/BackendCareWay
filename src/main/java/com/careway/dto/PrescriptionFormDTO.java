@@ -39,6 +39,9 @@ public class PrescriptionFormDTO {
     @JsonProperty("nombre_transports")
     private Integer nombre_transports;
 
+    @JsonProperty("date_transport")
+    private String date_transport;
+
     @JsonProperty("exoneration")
     private String[] exoneration;
 
@@ -174,6 +177,14 @@ public class PrescriptionFormDTO {
 
     public void setNombre_transports(Integer nombre_transports) {
         this.nombre_transports = nombre_transports;
+    }
+
+    public String getDate_transport() {
+        return date_transport;
+    }
+
+    public void setDate_transport(String date_transport) {
+        this.date_transport = date_transport;
     }
 
     public String[] getExoneration() {
