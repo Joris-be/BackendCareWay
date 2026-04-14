@@ -14,7 +14,7 @@ public class EmailService {
     public void sendPasswordResetEmail(String toEmail, String resetToken, String userName, String userType) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom("jean.dupont071980@gmail.com");
+            message.setFrom("askrichayma7@gmail.com");
             message.setTo(toEmail);
             message.setSubject("CareWay - Réinitialiser votre mot de passe");
 
