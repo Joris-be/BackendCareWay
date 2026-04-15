@@ -102,7 +102,7 @@ public class PrescriptionService {
         // Créer la prescription
         Prescription prescription = new Prescription();
         prescription.setIdpatient(formData.getPatientId());
-        prescription.setMedecin(formData.getMedecinId().toString());
+        prescription.setMedecin(formData.getMedecinId());
         prescription.setMotifmedical(
                 String.join(", ", formData.getSituation1() != null ? formData.getSituation1() : new String[0]));
         prescription
@@ -197,12 +197,8 @@ public class PrescriptionService {
 
         Medecin medecin = null;
         if (prescription.getMedecin() != null) {
-            try {
-                medecin = medecinRepository.findById(Integer.parseInt(prescription.getMedecin()))
-                        .orElse(null);
-            } catch (NumberFormatException e) {
-                // Le stockage du médecin peut être différent
-            }
+            medecin = medecinRepository.findById(prescription.getMedecin())
+                    .orElse(null);
         }
 
         // Créer des données de formulaire basiques

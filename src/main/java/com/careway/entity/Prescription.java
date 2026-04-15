@@ -51,7 +51,7 @@ public class Prescription {
     private Integer idpatient;
 
     @Column(name = "idmedecin")
-    private String medecin;
+    private Integer medecin;
 
     @JsonIgnore
     @ManyToOne
