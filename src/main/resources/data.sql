@@ -1,5 +1,4 @@
--- CareWay Database Seed Data - Prescription focused
--- Clean truncate all tables with cascade  
+﻿-- Supprimer les donn├®es existantes (PostgreSQL: TRUNCATE with CASCADE)
 TRUNCATE TABLE qr_codes CASCADE;
 TRUNCATE TABLE etape CASCADE;
 TRUNCATE TABLE evaluation CASCADE;
@@ -13,70 +12,12 @@ TRUNCATE TABLE transporteur CASCADE;
 TRUNCATE TABLE medecin CASCADE;
 TRUNCATE TABLE patient CASCADE;
 
--- 1. Insert Medecins
+-- 1. Medecin (pas de FK)
 INSERT INTO Medecin(idmedecin, nom, prenom, specialite, rpps, motdepasse, mail) VALUES
 (1,'Rousseau','Martin','Medecin generaliste','10123456789','MedPass123','martin.rousseau@gmail.com'),
 (2,'Dupont','Marie','Cardiologue','10234567890','MedPass123','marie.dupont@gmail.com');
 
--- 2. Insert Patients
-INSERT INTO Patient(idpatient, prenom, nom, datenaiss, nss, motdepasse, adresse, maladie, tel, mail, genre, pays) VALUES
-(1,'Jean','Dupont','1985-03-15','185037512345678','PatPass123','12 rue Paris','Arythmie','0612345678','jean@example.com','M','France'),
-(2,'Sophie','Martin','1990-07-22','290077523456789','PatPass123','5 Lyon','Entorse','0623456789','sophie@example.com','F','France'),
-(3,'Pierre','Bernard','1978-11-30','178117534567890','PatPass123','8 Marseille','Migraines','0634567890','pierre@example.com','M','France'),
-(4,'Luc','Moreau','1992-05-20','192057556789012','PatPass123','15 Toulouse','Diabete','0645678901','luc@example.com','M','France'),
-(5,'Claire','Girard','1988-09-10','188097634512345','PatPass123','20 Bordeaux','Hypertension','0656789012','claire@example.com','F','France'),
-(6,'Thomas','Leclerc','1995-12-03','195127745623456','PatPass123','7 Nice','Asthme','0667890123','thomas@example.com','M','France');
-
--- 3. Insert Prescriptions - Links Patients to Medecins  
-INSERT INTO Prescription(idprescription, motifmedical, typetransport, dateprescription, dategeneration, idmedecin, idpatient) VALUES
-(1,'Consultation cardiologie','Ambulance','2026-01-10','2026-01-09',1,1),
-(2,'Consultation neurologie','Ambulance','2026-01-20','2026-01-19',1,2),
-(3,'Bilan diabete','Ambulance','2026-02-10','2026-02-09',1,3),
-(4,'Suivi cardiaque','VSL','2026-03-05','2026-03-04',1,4),
-(5,'Consultation hypertension','Ambulance','2026-03-15','2026-03-14',1,5),
-(6,'Suivi asthme','VSL','2026-04-05','2026-04-04',1,6),
-(7,'Consultation generale','Ambulance','2026-02-20','2026-02-19',1,1),
-(8,'Suivi post traitement','VSL','2026-03-25','2026-03-24',1,2),
-(9,'Bilan specialise','Ambulance','2026-04-15','2026-04-14',1,3),
-(10,'Consultation cardio','VSL','2026-04-20','2026-04-19',2,4);
-
--- 4. Insert Transport records
-INSERT INTO Transport(idtransport, datetransport, lieudepart, lieuarrive, typetransport, idpatient, statut) VALUES
-(1,'2026-01-10 08:00:00','12 rue Paris','Hopital Lariboisiere','Ambulance',1,'TERMINE'),
-(2,'2026-01-20 10:00:00','5 Lyon','Clinique Lyon','Ambulance',2,'TERMINE'),
-(3,'2026-02-10 14:00:00','8 Marseille','Hopital Marseille','Ambulance',3,'TERMINE'),
-(4,'2026-03-05 09:00:00','15 Toulouse','CHU Toulouse','VSL',4,'TERMINE'),
-(5,'2026-03-15 11:00:00','20 Bordeaux','Hopital Bordeaux','Ambulance',5,'TERMINE'),
-(6,'2026-04-05 08:30:00','7 Nice','Hopital Nice','VSL',6,'TERMINE');
-
--- 5. Insert Transporteur records
-INSERT INTO Transporteur(idtransporteur, nom, prenom, tel, mail, image, idtransport) VALUES
-(1,'Durand','Lucas','0611111111','lucas@example.com','https://via.placeholder.com/150',1),
-(2,'Leroy','Maxime','0622222222','maxime@example.com','https://via.placeholder.com/150',2),
-(3,'Bonnet','Kevin','0633333333','kevin@example.com','https://via.placeholder.com/150',3),
-(4,'Fontaine','Antoine','0644444444','antoine@example.com','https://via.placeholder.com/150',4),
-(5,'Girard','Benjamin','0655555555','benjamin@example.com','https://via.placeholder.com/150',5),
-(6,'Michel','Olivier','0666666666','olivier@example.com','https://via.placeholder.com/150',6);
--- Supprimer les données existantes (PostgreSQL: TRUNCATE with CASCADE)
-TRUNCATE TABLE qr_codes CASCADE;
-TRUNCATE TABLE etape CASCADE;
-TRUNCATE TABLE evaluation CASCADE;
-TRUNCATE TABLE remboursement CASCADE;
-TRUNCATE TABLE note CASCADE;
-TRUNCATE TABLE notifications CASCADE;
-TRUNCATE TABLE patient_favori CASCADE;
-TRUNCATE TABLE prescription CASCADE;
-TRUNCATE TABLE transport CASCADE;
-TRUNCATE TABLE transporteur CASCADE;
-TRUNCATE TABLE medecin CASCADE;
-TRUNCATE TABLE patient CASCADE;
-
--- 1. Medecin
-INSERT INTO Medecin(idmedecin, nom, prenom, specialite, rpps, motdepasse, mail) VALUES
-(1,'Rousseau','Martin','Medecin generaliste','10123456789','MedPass123','martin.rousseau@gmail.com'),
-(2,'Dupont','Marie','Cardiologue','10234567890','MedPass123','marie.dupont@gmail.com');
-
--- 2. Patient
+-- 2. Patient (pas de FK)
 INSERT INTO Patient(idpatient, prenom, nom, datenaiss, nss, motdepasse, adresse, maladie, tel, mail, genre, pays, image) VALUES
 (1,'Jean','Dupont','1985-03-15','185037512345678','PatPass123','12 rue de la Paix, Paris','Arythmie cardiaque','0612345678','jean.dupont071980@gmail.com','M','France','https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop'),
 (2,'Sophie','Martin','1990-07-22','290077523456789','PatPass123','5 avenue des Fleurs, Lyon','Entorse','0623456789','sophie.martin@gmail.com','F','France','https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop'),
@@ -103,7 +44,7 @@ INSERT INTO Transport(idtransport, datetransport, lieudepart, lieuarrive, typetr
 (14,'2026-03-20 13:45:00','7 avenue Montaigne, Nice','Clinique du Val, Nice','VSL', 6, 'TERMINE'),
 (15,'2026-04-05 08:30:00','7 avenue Montaigne, Nice','Centre Respiratoire, Nice','Ambulance', 6, 'PLANIFIE');
 
--- 4. Prescription - CRITICAL!
+-- 4. PRESCRIPTION - CRITICAL: Using integer idmedecin values!
 INSERT INTO Prescription(idprescription, motifmedical, typetransport, dateprescription, dategeneration, idmedecin, idpatient) VALUES
 (1,'Consultation cardiologie','Ambulance','2026-01-10','2026-01-09',1,1),
 (2,'Seance de kinesitherapie','VSL','2026-01-15','2026-01-14',2,2),
@@ -114,7 +55,10 @@ INSERT INTO Prescription(idprescription, motifmedical, typetransport, dateprescr
 (7,'Seance de revalidation','VSL','2026-04-10','2026-04-09',1,5),
 (8,'Consultation pneumologie','Ambulance','2026-02-15','2026-02-14',1,6),
 (9,'Bilan respiratoire','VSL','2026-03-20','2026-03-19',1,6),
-(10,'Suivi asthme','Ambulance','2026-04-05','2026-04-04',1,6);(idpatient, prenom, nom, datenaiss, nss, motdepasse, adresse, maladie, tel, mail, genre, pays, image) VALUES
+(10,'Suivi asthme','Ambulance','2026-04-05','2026-04-04',1,6);
+
+-- 2. Patient (pas de FK)
+INSERT INTO Patient(idpatient, prenom, nom, datenaiss, nss, motdepasse, adresse, maladie, tel, mail, genre, pays, image) VALUES
 (1,'Jean','Dupont','1985-03-15','185037512345678','PatPass123','12 rue de la Paix, Paris','Arythmie cardiaque','0612345678','jean.dupont071980@gmail.com','M','France','https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop'),
 (2,'Sophie','Martin','1990-07-22','290077523456789','PatPass123','5 avenue des Fleurs, Lyon','Entorse','0623456789','sophie.martin@gmail.com','F','France','https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop'),
 (3,'Pierre','Bernard','1978-11-30','178117534567890','PatPass123','8 boulevard Victor Hugo, Marseille','Migraines','0634567890','pierre.bernard@gmail.com','M','France','https://images.unsplash.com/photo-1546961329-78bef0414d7d?w=400&h=400&fit=crop'),
@@ -148,7 +92,7 @@ INSERT INTO Prescription(idprescription, motifmedical, typetransport, dateprescr
 (31,'Helene','Young','1986-02-07','186027225789013','PatPass123','21 rue Oberkampf, Toulouse','Epilepsie','0612345681','helene.young@gmail.com','F','France','https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop'),
 (32,'Andre','Zabarella','1972-08-16','172087326890124','PatPass123','38 avenue Pasteur, Lyon','Arterite temporale','0623456782','andre.zabarella@gmail.com','M','France','https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop'),
 (33,'Caroline','Martin','1989-01-23','189017427901235','PatPass123','16 rue Ballu, Paris','Mycose','0634567893','caroline.martin@gmail.com','F','France','https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop'),
-(34,'Philippe','Noel','1984-09-10','184097528012346','PatPass123','31 avenue Kléber, Bordeaux','Osteoporose','0645678904','philippe.noel@gmail.com','M','France','https://images.unsplash.com/photo-1546961329-78bef0414d7d?w=400&h=400&fit=crop'),
+(34,'Philippe','Noel','1984-09-10','184097528012346','PatPass123','31 avenue Kl├®ber, Bordeaux','Osteoporose','0645678904','philippe.noel@gmail.com','M','France','https://images.unsplash.com/photo-1546961329-78bef0414d7d?w=400&h=400&fit=crop'),
 (35,'Simone','Laroche','1993-03-30','193037629123457','PatPass123','7 rue Thouin, Marseille','Endometriose','0656789015','simone.laroche@gmail.com','F','France','https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop'),
 (36,'Thierry','Gervais','1979-06-05','179067730234568','PatPass123','13 avenue Wilson, Nice','Glaucome','0667890126','thierry.gervais@gmail.com','M','France','https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop'),
 (37,'Madeleine','Broussard','1987-04-12','187047831345679','PatPass123','46 boulevard Voltaire, Toulouse','Maladie de Crohn','0678901237','madeleine.broussard@gmail.com','F','France','https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop'),
