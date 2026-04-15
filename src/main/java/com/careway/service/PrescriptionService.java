@@ -43,15 +43,11 @@ public class PrescriptionService {
     }
 
     public List<Prescription> getPrescriptionsByMedecinId(Integer medecinId) {
-        return prescriptionRepository.findAll().stream()
-                .filter(p -> p.getMedecin() != null && p.getMedecin().equals(medecinId))
-                .collect(Collectors.toList());
+        return prescriptionRepository.findByMedecinId(medecinId);
     }
 
     public List<Prescription> getPrescriptionsByPatientId(Integer patientId) {
-        return prescriptionRepository.findAll().stream()
-                .filter(p -> p.getIdpatient() != null && p.getIdpatient().equals(patientId))
-                .collect(Collectors.toList());
+        return prescriptionRepository.findByPatientId(patientId);
     }
 
     public Prescription getPrescriptionById(Integer id) {

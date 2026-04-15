@@ -132,7 +132,7 @@ public class PatientService {
     // Récupérer les patients d'un médecin (via ses prescriptions)
     public List<PatientDTO> getPatientsByMedecinId(Integer medecinId) {
         Set<Integer> patientIds = prescriptionRepository.findAll().stream()
-                .filter(p -> p.getMedecin() != null && p.getMedecin().equals(medecinId.toString()))
+                .filter(p -> p.getMedecin() != null && p.getMedecin().equals(medecinId))
                 .map(p -> p.getIdpatient())
                 .collect(Collectors.toSet());
 

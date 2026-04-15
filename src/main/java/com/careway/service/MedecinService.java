@@ -66,15 +66,15 @@ public class MedecinService {
 
         Medecin medecin = medecinOpt.get();
 
-        // Count prescriptions for this medecin
+        // Count prescriptions for this medecin - FIXED: Compare Integer to Integer
         List<com.careway.entity.Prescription> allPrescriptions = prescriptionRepository.findAll();
         long prescriptionsCount = allPrescriptions.stream()
-                .filter(p -> p.getMedecin() != null && p.getMedecin().equals(medecinId.toString()))
+                .filter(p -> p.getMedecin() != null && p.getMedecin().equals(medecinId))
                 .count();
 
         // Count patients for this medecin (via prescriptions)
         Set<Integer> patientIds = allPrescriptions.stream()
-                .filter(p -> p.getMedecin() != null && p.getMedecin().equals(medecinId.toString()))
+                .filter(p -> p.getMedecin() != null && p.getMedecin().equals(medecinId))
                 .map(p -> p.getIdpatient())
                 .collect(Collectors.toSet());
 
@@ -82,7 +82,7 @@ public class MedecinService {
         List<Medecin> allMedecins = getAllMedecins();
         double averagePrescriptions = allMedecins.stream()
                 .mapToLong(m -> allPrescriptions.stream()
-                        .filter(p -> p.getMedecin() != null && p.getMedecin().equals(m.getIdmedecin().toString()))
+                        .filter(p -> p.getMedecin() != null && p.getMedecin().equals(m.getIdmedecin()))
                         .count())
                 .average()
                 .orElse(0.0);
@@ -99,7 +99,7 @@ public class MedecinService {
 
         // Top transport type for this medecin
         String topTransport = allPrescriptions.stream()
-                .filter(p -> p.getMedecin() != null && p.getMedecin().equals(medecinId.toString()))
+                .filter(p -> p.getMedecin() != null && p.getMedecin().equals(medecinId))
                 .map(p -> p.getTypetransport())
                 .collect(Collectors.groupingBy(t -> t, Collectors.counting()))
                 .entrySet().stream()
