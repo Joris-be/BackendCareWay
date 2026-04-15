@@ -2,6 +2,7 @@ package com.careway.controller;
 
 import java.util.List;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,14 @@ import com.careway.service.RemboursementService;
 
 @RestController
 @RequestMapping("/remboursements")
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5173", "https://careway-frontend.onrender.com"}, 
+             methods = {org.springframework.web.bind.annotation.RequestMethod.GET, 
+                       org.springframework.web.bind.annotation.RequestMethod.POST,
+                       org.springframework.web.bind.annotation.RequestMethod.PUT,
+                       org.springframework.web.bind.annotation.RequestMethod.DELETE,
+                       org.springframework.web.bind.annotation.RequestMethod.OPTIONS},
+             allowCredentials = "true",
+             maxAge = 3600)
 public class RemboursementController {
     private final RemboursementService remboursementService;
 
