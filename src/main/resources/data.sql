@@ -1,15 +1,17 @@
--- Supprimer les données existantes (dans l'ordre inverse des FK)
--- qr_codes référence etape, donc le supprimer d'abord
+-- Supprimer les données existantes (ordre correct respectant les FK)
+-- QRCode → Etape → Transport; Remboursement → Transport
 DELETE FROM qr_codes;
 DELETE FROM Etape;
 DELETE FROM Evaluation;
+DELETE FROM Remboursement;
 DELETE FROM Note;
-DELETE FROM Patient_Favori;
-DELETE FROM Transport;
-DELETE FROM Prescription;
 DELETE FROM Notifications;
-DELETE FROM Patient;
+DELETE FROM Patient_Favori;
+DELETE FROM Prescription;
+DELETE FROM Transport;
+DELETE FROM Transporteur;
 DELETE FROM Medecin;
+DELETE FROM Patient;
 
 -- 1. Medecin (pas de FK)
 INSERT INTO Medecin(idmedecin, nom, prenom, specialite, rpps, motdepasse, mail) VALUES
