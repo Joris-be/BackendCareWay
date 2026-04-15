@@ -44,7 +44,7 @@ public class PrescriptionService {
 
     public List<Prescription> getPrescriptionsByMedecinId(Integer medecinId) {
         return prescriptionRepository.findAll().stream()
-                .filter(p -> p.getMedecin() != null && p.getMedecin().equals(medecinId.toString()))
+                .filter(p -> p.getMedecin() != null && p.getMedecin().equals(medecinId))
                 .collect(Collectors.toList());
     }
 
