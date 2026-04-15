@@ -1,4 +1,6 @@
 -- Supprimer les données existantes (dans l'ordre inverse des FK)
+-- qr_codes référence etape, donc le supprimer d'abord
+DELETE FROM qr_codes;
 DELETE FROM Etape;
 DELETE FROM Evaluation;
 DELETE FROM Note;
