@@ -1,17 +1,40 @@
--- Supprimer les données existantes (ordre correct respectant les FK)
--- QRCode → Etape → Transport; Remboursement → Transport
+-- Désactiver les contraintes FK pour les DELETEs
+ALTER TABLE IF EXISTS qr_codes DISABLE TRIGGER ALL;
+ALTER TABLE IF EXISTS etape DISABLE TRIGGER ALL;
+ALTER TABLE IF EXISTS evaluation DISABLE TRIGGER ALL;
+ALTER TABLE IF EXISTS remboursement DISABLE TRIGGER ALL;
+ALTER TABLE IF EXISTS note DISABLE TRIGGER ALL;
+ALTER TABLE IF EXISTS notifications DISABLE TRIGGER ALL;
+ALTER TABLE IF EXISTS patient_favori DISABLE TRIGGER ALL;
+ALTER TABLE IF EXISTS prescription DISABLE TRIGGER ALL;
+ALTER TABLE IF EXISTS transport DISABLE TRIGGER ALL;
+ALTER TABLE IF EXISTS transporteur DISABLE TRIGGER ALL;
+
+-- Supprimer les données existantes (ordre n'importe pas maintenant)
 DELETE FROM qr_codes;
-DELETE FROM Etape;
-DELETE FROM Evaluation;
-DELETE FROM Remboursement;
-DELETE FROM Note;
-DELETE FROM Notifications;
-DELETE FROM Patient_Favori;
-DELETE FROM Prescription;
-DELETE FROM Transport;
-DELETE FROM Transporteur;
-DELETE FROM Medecin;
-DELETE FROM Patient;
+DELETE FROM etape;
+DELETE FROM evaluation;
+DELETE FROM remboursement;
+DELETE FROM note;
+DELETE FROM notifications;
+DELETE FROM patient_favori;
+DELETE FROM prescription;
+DELETE FROM transport;
+DELETE FROM transporteur;
+DELETE FROM medecin;
+DELETE FROM patient;
+
+-- Réactiver les contraintes FK
+ALTER TABLE qr_codes ENABLE TRIGGER ALL;
+ALTER TABLE etape ENABLE TRIGGER ALL;
+ALTER TABLE evaluation ENABLE TRIGGER ALL;
+ALTER TABLE remboursement ENABLE TRIGGER ALL;
+ALTER TABLE note ENABLE TRIGGER ALL;
+ALTER TABLE notifications ENABLE TRIGGER ALL;
+ALTER TABLE patient_favori ENABLE TRIGGER ALL;
+ALTER TABLE prescription ENABLE TRIGGER ALL;
+ALTER TABLE transport ENABLE TRIGGER ALL;
+ALTER TABLE transporteur ENABLE TRIGGER ALL;
 
 -- 1. Medecin (pas de FK)
 INSERT INTO Medecin(idmedecin, nom, prenom, specialite, rpps, motdepasse, mail) VALUES
