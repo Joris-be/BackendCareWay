@@ -1,40 +1,16 @@
--- Désactiver les contraintes FK pour les DELETEs
-ALTER TABLE IF EXISTS qr_codes DISABLE TRIGGER ALL;
-ALTER TABLE IF EXISTS etape DISABLE TRIGGER ALL;
-ALTER TABLE IF EXISTS evaluation DISABLE TRIGGER ALL;
-ALTER TABLE IF EXISTS remboursement DISABLE TRIGGER ALL;
-ALTER TABLE IF EXISTS note DISABLE TRIGGER ALL;
-ALTER TABLE IF EXISTS notifications DISABLE TRIGGER ALL;
-ALTER TABLE IF EXISTS patient_favori DISABLE TRIGGER ALL;
-ALTER TABLE IF EXISTS prescription DISABLE TRIGGER ALL;
-ALTER TABLE IF EXISTS transport DISABLE TRIGGER ALL;
-ALTER TABLE IF EXISTS transporteur DISABLE TRIGGER ALL;
-
--- Supprimer les données existantes (ordre n'importe pas maintenant)
-DELETE FROM qr_codes;
-DELETE FROM etape;
-DELETE FROM evaluation;
-DELETE FROM remboursement;
-DELETE FROM note;
-DELETE FROM notifications;
-DELETE FROM patient_favori;
-DELETE FROM prescription;
-DELETE FROM transport;
-DELETE FROM transporteur;
-DELETE FROM medecin;
-DELETE FROM patient;
-
--- Réactiver les contraintes FK
-ALTER TABLE qr_codes ENABLE TRIGGER ALL;
-ALTER TABLE etape ENABLE TRIGGER ALL;
-ALTER TABLE evaluation ENABLE TRIGGER ALL;
-ALTER TABLE remboursement ENABLE TRIGGER ALL;
-ALTER TABLE note ENABLE TRIGGER ALL;
-ALTER TABLE notifications ENABLE TRIGGER ALL;
-ALTER TABLE patient_favori ENABLE TRIGGER ALL;
-ALTER TABLE prescription ENABLE TRIGGER ALL;
-ALTER TABLE transport ENABLE TRIGGER ALL;
-ALTER TABLE transporteur ENABLE TRIGGER ALL;
+-- Supprimer les données existantes (PostgreSQL: TRUNCATE with CASCADE)
+TRUNCATE TABLE qr_codes CASCADE;
+TRUNCATE TABLE etape CASCADE;
+TRUNCATE TABLE evaluation CASCADE;
+TRUNCATE TABLE remboursement CASCADE;
+TRUNCATE TABLE note CASCADE;
+TRUNCATE TABLE notifications CASCADE;
+TRUNCATE TABLE patient_favori CASCADE;
+TRUNCATE TABLE prescription CASCADE;
+TRUNCATE TABLE transport CASCADE;
+TRUNCATE TABLE transporteur CASCADE;
+TRUNCATE TABLE medecin CASCADE;
+TRUNCATE TABLE patient CASCADE;
 
 -- 1. Medecin (pas de FK)
 INSERT INTO Medecin(idmedecin, nom, prenom, specialite, rpps, motdepasse, mail) VALUES
