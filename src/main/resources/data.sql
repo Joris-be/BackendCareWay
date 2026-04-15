@@ -17,6 +17,37 @@ INSERT INTO Medecin(idmedecin, nom, prenom, specialite, rpps, motdepasse, mail) 
 (1,'Rousseau','Martin','Medecin generaliste','10123456789','MedPass123','martin.rousseau@gmail.com'),
 (2,'Dupont','Marie','Cardiologue','10234567890','MedPass123','marie.dupont@gmail.com');
 
+-- 3. Transport
+INSERT INTO Transport(idtransport, datetransport, lieudepart, lieuarrive, typetransport, idpatient, statut) VALUES
+(1,'2026-01-10 08:00:00','12 rue de la Paix, Paris','Hopital Lariboisiere, Paris','Ambulance', 1, 'TERMINE'),
+(2,'2026-03-15 09:30:00','12 rue de la Paix, Paris','Clinique du Parc, Paris','VSL', 1, 'TERMINE'),
+(3,'2026-01-15 08:45:00','5 avenue des Fleurs, Lyon','Clinique du Parc, Lyon','VSL', 2, 'TERMINE'),
+(4,'2026-01-20 10:00:00','8 boulevard Victor Hugo, Marseille','Hopital de la Timone, Marseille','Ambulance', 3, 'TERMINE'),
+(5,'2026-02-01 14:30:00','12 rue de la Paix, Paris','Hopital Saint-Antoine, Paris','Ambulance', 1, 'TERMINE'),
+(6,'2026-02-05 09:15:00','12 rue de la Paix, Paris','Hopital Bichat, Paris','VSL', 1, 'PLANIFIE'),
+(7,'2026-03-30 14:15:00','12 rue de la Paix, Paris','Centre de Reeducation, Paris','Ambulance', 1, 'TERMINE'),
+(8,'2026-04-20 15:00:00','12 rue de la Paix, Paris','Hopital Necker, Paris','VSL', 1, 'PLANIFIE'),
+(9,'2026-02-10 10:30:00','15 rue de la Republique, Toulouse','Centre Hospitalier Universitaire, Toulouse','Ambulance', 4, 'TERMINE'),
+(10,'2026-03-05 14:00:00','15 rue de la Republique, Toulouse','Clinique de l Indre, Toulouse','VSL', 4, 'TERMINE'),
+(11,'2026-04-01 09:00:00','20 boulevard du Theatre, Bordeaux','Hopital Saint-Andre, Bordeaux','Ambulance', 5, 'TERMINE'),
+(12,'2026-04-10 15:30:00','20 boulevard du Theatre, Bordeaux','Centre de Cardiologie, Bordeaux','VSL', 5, 'PLANIFIE'),
+(13,'2026-02-15 11:00:00','7 avenue Montaigne, Nice','Hopital Archet, Nice','Ambulance', 6, 'TERMINE'),
+(14,'2026-03-20 13:45:00','7 avenue Montaigne, Nice','Clinique du Val, Nice','VSL', 6, 'TERMINE'),
+(15,'2026-04-05 08:30:00','7 avenue Montaigne, Nice','Centre Respiratoire, Nice','Ambulance', 6, 'PLANIFIE');
+
+-- 4. PRESCRIPTION - CRITICAL: Using integer idmedecin values!
+INSERT INTO Prescription(idprescription, motifmedical, typetransport, dateprescription, dategeneration, idmedecin, idpatient) VALUES
+(1,'Consultation cardiologie','Ambulance','2026-01-10','2026-01-09',1,1),
+(2,'Seance de kinesitherapie','VSL','2026-01-15','2026-01-14',2,2),
+(3,'Consultation neurologie','Ambulance','2026-01-20','2026-01-19',1,3),
+(4,'Bilan diabete','Ambulance','2026-02-10','2026-02-09',1,4),
+(5,'Suivi cardiaque','VSL','2026-03-05','2026-03-04',1,4),
+(6,'Consultation cardiologie debutante','Ambulance','2026-04-01','2026-03-31',1,5),
+(7,'Seance de revalidation','VSL','2026-04-10','2026-04-09',1,5),
+(8,'Consultation pneumologie','Ambulance','2026-02-15','2026-02-14',1,6),
+(9,'Bilan respiratoire','VSL','2026-03-20','2026-03-19',1,6),
+(10,'Suivi asthme','Ambulance','2026-04-05','2026-04-04',1,6);
+
 -- 2. Patient (pas de FK)
 INSERT INTO Patient(idpatient, prenom, nom, datenaiss, nss, motdepasse, adresse, maladie, tel, mail, genre, pays, image) VALUES
 (1,'Jean','Dupont','1985-03-15','185037512345678','PatPass123','12 rue de la Paix, Paris','Arythmie cardiaque','0612345678','jean.dupont071980@gmail.com','M','France','https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop'),
