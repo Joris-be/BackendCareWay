@@ -1,0 +1,47 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    container_name: careway-db
+    environment:
+      POSTGRES_DB: careway
+      POSTGRES_USER: careway_user
+      POSTGRES_PASSWORD: password123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U careway_user"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 15s
+
+  backend:
+    image: askri/backend:latest
+    container_name: careway-backend
+    environment:
+      SPRING_PROFILES_ACTIVE: render
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: careway
+      POSTGRES_USER: careway_user
+      POSTGRES_PASSWORD: password123
+      GMAIL_PASSWORD: wsqbnpyvgefdlpyx
+      PORT: 8081
+    ports:
+      - "8081:8081"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/patients"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+volumes:
+  postgres_data:

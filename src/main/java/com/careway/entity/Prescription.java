@@ -45,7 +45,7 @@ public class Prescription {
     @NonNull
     private Date dategeneration;
 
-    @Column(name = "pdf_data", columnDefinition = "BLOB")
+    @Column(name = "pdf_data", columnDefinition = "bytea")
     private byte[] pdfData;
 
     private Integer idpatient;
