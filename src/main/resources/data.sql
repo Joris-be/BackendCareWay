@@ -1,19 +1,19 @@
-﻿-- CareWay Database Seed Data
+-- CareWay Database Seed Data
 -- Complete and clean data initialization
 
 -- Clean truncate all tables with cascade  
-TRUNCATE TABLE qr_codes CASCADE;
-TRUNCATE TABLE etape CASCADE;
-TRUNCATE TABLE evaluation CASCADE;
-TRUNCATE TABLE remboursement CASCADE;
-TRUNCATE TABLE note CASCADE;
-TRUNCATE TABLE notifications CASCADE;
-TRUNCATE TABLE patient_favori CASCADE;
-TRUNCATE TABLE prescription CASCADE;
-TRUNCATE TABLE transport CASCADE;
-TRUNCATE TABLE transporteur CASCADE;
-TRUNCATE TABLE medecin CASCADE;
-TRUNCATE TABLE patient CASCADE;
+DELETE FROM qr_codes;
+DELETE FROM etape;
+DELETE FROM evaluation;
+DELETE FROM remboursement;
+DELETE FROM note;
+DELETE FROM notifications;
+DELETE FROM patient_favori;
+DELETE FROM prescription;
+DELETE FROM transport;
+DELETE FROM transporteur;
+DELETE FROM medecin;
+DELETE FROM patient;
 
 -- 1. INSERT MEDECINS
 INSERT INTO Medecin(idmedecin, nom, prenom, specialite, rpps, motdepasse, mail) VALUES

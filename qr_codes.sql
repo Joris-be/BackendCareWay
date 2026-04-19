@@ -1,4 +1,4 @@
-﻿-- 12. QR Codes pour les etapes DEPART des transports (UN seul QR code par transport - etape DEPART seulement)
+-- 12. QR Codes pour les etapes DEPART des transports (UN seul QR code par transport - etape DEPART seulement)
 INSERT INTO qr_codes(code, scanned, generated_at, expires_at, scanned_at, etape_id) VALUES
 -- Anciens transports (1-5)
 ('550e8400-e29b-41d4-a716-446655440001', true, '2026-01-10 08:00:00', '2026-01-10 10:00:00', '2026-01-10 08:15:00', 1),
